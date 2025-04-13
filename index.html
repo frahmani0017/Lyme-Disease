@@ -21,6 +21,10 @@
             --danger: #D32F2F;
             --secondary: #5E548E;
             --secondary-light: #9F90D0;
+            --grass: #4CAF50;
+            --grass-dark: #388E3C;
+            --sun: #FFC107;
+            --sky: #B3E5FC;
         }
 
         * {
@@ -1953,15 +1957,17 @@
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
         }
 
-        .clothing-item img {
+        .clothing-item-graphic {
             width: 100%;
             height: 120px;
-            object-fit: contain;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             margin-bottom: 1rem;
             transition: transform 0.3s;
         }
 
-        .clothing-item:hover img {
+        .clothing-item:hover .clothing-item-graphic {
             transform: scale(1.1);
         }
 
@@ -1980,32 +1986,553 @@
             justify-content: space-between;
         }
 
-        .character-image {
+        .character-container {
+            position: relative;
             width: 100%;
             height: 400px;
-            background-image: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 400"><circle cx="100" cy="80" r="40" fill="%23F5D0C5"/><line x1="100" y1="120" x2="100" y2="250" stroke="%23333" stroke-width="4"/><line x1="100" y1="170" x2="40" y2="120" stroke="%23333" stroke-width="4"/><line x1="100" y1="170" x2="160" y2="120" stroke="%23333" stroke-width="4"/><line x1="100" y1="250" x2="40" y2="350" stroke="%23333" stroke-width="4"/><line x1="100" y1="250" x2="160" y2="350" stroke="%23333" stroke-width="4"/></svg>');
-            background-size: contain;
-            background-position: center;
-            background-repeat: no-repeat;
-            margin-bottom: 1.5rem;
-            position: relative;
+            background-color: var(--sky);
             border-radius: 15px;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s;
+            overflow: hidden;
         }
 
-        .character-image:hover {
+        .character-container:hover {
             transform: scale(1.02);
         }
 
-        .worn-item {
+        /* Environment elements */
+        .sun {
             position: absolute;
-            width: 100%;
+            top: 40px;
+            right: 40px;
+            width: 80px;
+            height: 80px;
+            background-color: var(--sun);
+            border-radius: 50%;
+            box-shadow: 0 0 40px rgba(255, 193, 7, 0.7);
+        }
+
+        .sun-ray {
+            position: absolute;
+            background-color: var(--sun);
+            width: 20px;
+            height: 4px;
+            top: 50%;
+            left: 50%;
+            transform-origin: left center;
+        }
+        
+        /* Cloud Animation */
+        .cloud {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+            opacity: 0.9;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+            animation: cloudFloat linear infinite;
+        }
+        
+        .cloud-1 {
+            top: 60px;
+            left: -100px;
+            width: 100px;
+            height: 50px;
+            animation-duration: 35s;
+        }
+        
+        .cloud-2 {
+            top: 120px;
+            left: -150px;
+            width: 150px;
+            height: 70px;
+            animation-duration: 45s;
+            animation-delay: 5s;
+        }
+        
+        .cloud-3 {
+            top: 30px;
+            left: -80px;
+            width: 80px;
+            height: 40px;
+            animation-duration: 30s;
+            animation-delay: 15s;
+        }
+        
+        .cloud::before,
+        .cloud::after {
+            content: '';
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+        }
+        
+        .cloud::before {
+            width: 60%;
             height: 100%;
-            background-size: contain;
-            background-position: center;
-            background-repeat: no-repeat;
-            transition: transform 0.3s;
+            top: -40%;
+            left: 15%;
+        }
+        
+        .cloud::after {
+            width: 70%;
+            height: 100%;
+            top: -20%;
+            right: 15%;
+        }
+
+        .grass {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 80px;
+            background-color: var(--grass);
+            z-index: 1;
+        }
+
+        .grass::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 15px;
+            background: linear-gradient(135deg, var(--grass-dark) 25%, transparent 25%) -20px 0,
+                        linear-gradient(225deg, var(--grass-dark) 25%, transparent 25%) -20px 0,
+                        linear-gradient(315deg, var(--grass-dark) 25%, transparent 25%),
+                        linear-gradient(45deg, var(--grass-dark) 25%, transparent 25%);
+            background-size: 40px 40px;
+            background-color: var(--grass);
+        }
+
+        .grass-blade {
+            position: absolute;
+            bottom: 0;
+            width: 6px;
+            height: 30px;
+            background-color: var(--grass-dark);
+            border-radius: 10px 10px 0 0;
+            transform-origin: bottom center;
+            z-index: 2;
+            animation: sway 4s infinite ease-in-out;
+        }
+
+        @keyframes sway {
+            0%, 100% {
+                transform: rotate(0deg);
+            }
+            25% {
+                transform: rotate(5deg);
+            }
+            75% {
+                transform: rotate(-5deg);
+            }
+        }
+        
+        @keyframes cloudFloat {
+            from {
+                transform: translateX(0);
+            }
+            to {
+                transform: translateX(calc(100vw + 200px));
+            }
+        }
+
+        .stick-figure {
+            position: absolute;
+            top: 60%;  /* Changed from 50% to make the figure shorter */
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 180px;  /* Slightly smaller width */
+            height: 280px; /* Reduced from 350px to make shorter */
+            z-index: 3;
+        }
+
+        .head {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px; /* Slightly smaller head */
+            height: 50px;
+            border-radius: 50%;
+            background-color: #F5D0C5;
+            z-index: 5;
+        }
+
+        .body {
+            position: absolute;
+            top: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 100px; /* Shorter body */
+            background-color: #333;
+            z-index: 2;
+        }
+
+        .arm-left, .arm-right {
+            position: absolute;
+            top: 60px;
+            width: 4px;
+            height: 80px; /* Shorter arms */
+            background-color: #333;
+            z-index: 2;
+        }
+
+        .arm-left {
+            left: 50%;
+            transform: translateX(-50%) rotate(45deg);
+            transform-origin: top center;
+        }
+
+        .arm-right {
+            left: 50%;
+            transform: translateX(-50%) rotate(-45deg);
+            transform-origin: top center;
+        }
+
+        .leg-left, .leg-right {
+            position: absolute;
+            top: 150px; /* Adjusted to connect with body */
+            width: 4px;
+            height: 100px; /* Shorter legs */
+            background-color: #333;
+            z-index: 2;
+        }
+
+        .leg-left {
+            left: 50%;
+            transform: translateX(-50%) rotate(15deg);
+            transform-origin: top center;
+        }
+
+        .leg-right {
+            left: 50%;
+            transform: translateX(-50%) rotate(-15deg);
+            transform-origin: top center;
+        }
+
+        /* 2D Clothing Graphics */
+        .hat-graphic {
+            width: 80px;
+            height: 40px;
+            position: relative;
+        }
+
+        .hat-wide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 80px;
+            height: 20px;
+            background-color: #6b4226;
+            border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+        }
+
+        .hat-wide::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: -15px;
+            width: 110px;
+            height: 10px;
+            background-color: #6b4226;
+            border-radius: 50%;
+        }
+
+        .sunglasses-graphic {
+            width: 60px;
+            height: 20px;
+            position: relative;
+        }
+
+        .sunglasses-frame {
+            position: absolute;
+            top: 5px;
+            left: 0;
+            width: 60px;
+            height: 15px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .sunglasses-lens {
+            width: 25px;
+            height: 15px;
+            background-color: #222;
+            border-radius: 5px;
+            border: 2px solid #444;
+        }
+
+        .sunglasses-bridge {
+            position: absolute;
+            top: 7px;
+            left: 25px;
+            width: 10px;
+            height: 2px;
+            background-color: #444;
+        }
+
+        .long-sleeve-graphic {
+            width: 80px;
+            height: 90px;
+            position: relative;
+        }
+
+        .long-sleeve-body {
+            position: absolute;
+            top: 0;
+            left: 10px;
+            width: 60px;
+            height: 90px; /* Extended to overlap with pants */
+            background-color: #3C6E71;
+            border-radius: 10px 10px 0 0;
+        }
+
+        .long-sleeve-arm-left, .long-sleeve-arm-right {
+            position: absolute;
+            top: 5px;
+            width: 15px;
+            height: 70px;
+            background-color: #3C6E71;
+            border-radius: 5px;
+        }
+
+        .long-sleeve-arm-left {
+            left: 0;
+            transform: rotate(15deg);
+        }
+
+        .long-sleeve-arm-right {
+            right: 0;
+            transform: rotate(-15deg);
+        }
+
+        .tshirt-graphic {
+            width: 80px;
+            height: 90px;
+            position: relative;
+        }
+
+        .tshirt-body {
+            position: absolute;
+            top: 0;
+            left: 10px;
+            width: 60px;
+            height: 90px; /* Extended to overlap with pants */
+            background-color: #FFEB3B; /* Changed to yellow */
+            border-radius: 10px 10px 0 0;
+        }
+
+        .tshirt-arm-left, .tshirt-arm-right {
+            position: absolute;
+            top: 5px;
+            width: 15px;
+            height: 30px;
+            background-color: #FFEB3B; /* Changed to yellow */
+            border-radius: 5px;
+        }
+
+        .tshirt-arm-left {
+            left: 0;
+            transform: rotate(15deg);
+        }
+
+        .tshirt-arm-right {
+            right: 0;
+            transform: rotate(-15deg);
+        }
+
+        .long-pants-graphic {
+            width: 70px;
+            height: 100px;
+            position: relative;
+        }
+
+        .long-pants-top {
+            position: absolute;
+            top: -5px; /* Moved up to overlap with shirts */
+            left: 10px;
+            width: 50px;
+            height: 25px;
+            background-color: #2c3e50;
+            border-radius: 5px 5px 0 0;
+        }
+
+        .long-pants-leg-left, .long-pants-leg-right {
+            position: absolute;
+            top: 20px;
+            width: 20px;
+            height: 80px;
+            background-color: #2c3e50;
+            border-radius: 0 0 5px 5px;
+        }
+
+        .long-pants-leg-left {
+            left: 15px;
+        }
+
+        .long-pants-leg-right {
+            right: 15px;
+        }
+
+        .shorts-graphic {
+            width: 70px;
+            height: 60px;
+            position: relative;
+        }
+
+        .shorts-top {
+            position: absolute;
+            top: -5px; /* Moved up to overlap with shirts */
+            left: 10px;
+            width: 50px;
+            height: 25px;
+            background-color: #e53935; /* Changed to red */
+            border-radius: 5px 5px 0 0;
+        }
+
+        .shorts-leg-left, .shorts-leg-right {
+            position: absolute;
+            top: 20px;
+            width: 20px;
+            height: 40px;
+            background-color: #e53935; /* Changed to red */
+            border-radius: 0 0 5px 5px;
+        }
+
+        .shorts-leg-left {
+            left: 15px;
+        }
+
+        .shorts-leg-right {
+            right: 15px;
+        }
+
+        .boots-graphic {
+            width: 120px; /* Wider to spread boots apart */
+            height: 40px;
+            position: relative;
+        }
+
+        .boots-left, .boots-right {
+            position: absolute;
+            bottom: 0;
+            width: 30px;
+            height: 35px;
+        }
+
+        .boots-left {
+            left: 15px; /* Moved further left */
+        }
+
+        .boots-right {
+            right: 15px; /* Moved further right */
+        }
+
+        .boot-top {
+            position: absolute;
+            top: 0;
+            width: 30px;
+            height: 15px;
+            background-color: #5d4037;
+            border-radius: 5px 5px 0 0;
+        }
+
+        .boot-bottom {
+            position: absolute;
+            bottom: 0;
+            width: 30px;
+            height: 20px;
+            background-color: #3e2723;
+            border-radius: 0 0 5px 5px;
+        }
+
+        .boot-bottom::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: -5px;
+            width: 40px;
+            height: 7px;
+            background-color: #3e2723;
+            border-radius: 0 0 5px 5px;
+        }
+
+        .sandals-graphic {
+            width: 120px; /* Wider to spread sandals apart */
+            height: 30px;
+            position: relative;
+        }
+
+        .sandal-left, .sandal-right {
+            position: absolute;
+            bottom: 0;
+            width: 30px;
+            height: 10px;
+            background-color: #795548;
+            border-radius: 5px;
+        }
+
+        .sandal-left {
+            left: 15px; /* Moved further left */
+        }
+
+        .sandal-right {
+            right: 15px; /* Moved further right */
+        }
+
+        .sandal-strap {
+            position: absolute;
+            top: -8px;
+            left: 10px;
+            width: 10px;
+            height: 12px;
+            border-left: 3px solid #795548;
+            border-right: 3px solid #795548;
+        }
+
+        /* Clothing items on stick figure */
+        .headwear-item {
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 40px;
+            z-index: 10;
+        }
+
+        .top-item {
+            position: absolute;
+            top: 45px; /* Adjusted position */
+            left: 55%; /* Adjusted to center on stick figure and move slightly right */
+            transform: translateX(-50%);
+            width: 100px;
+            height: 110px;
+            z-index: 3;
+        }
+
+        .bottom-item {
+            position: absolute;
+            top: 140px; /* Moved up to connect with top */
+            left: 55%; /* Adjusted to center on stick figure and move slightly right */
+            transform: translateX(-50%);
+            width: 80px;
+            height: 155px;
+            z-index: 3;
+        }
+
+        .footwear-item {
+            position: absolute;
+            top: 235px; /* Adjusted to match shorter stick figure */
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px; /* Wider for spread apart shoes */
+            height: 30px;
+            z-index: 4;
         }
 
         .dress-feedback {
@@ -2038,6 +2565,419 @@
             display: flex;
             justify-content: center;
             gap: 1.5rem;
+        }
+
+        /* Clothing category groups */
+        .clothing-category {
+            margin-bottom: 1.5rem;
+        }
+
+        .clothing-category-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: var(--primary-dark);
+            text-transform: uppercase;
+            text-align: center;
+            position: relative;
+            padding-bottom: 8px;
+        }
+
+        .clothing-category-title::after {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 2px;
+            background-color: var(--accent);
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        /* Cellular Effects Section */
+        .cellular-effects-section {
+            background-color: var(--white);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cellular-effects-section::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='%233C6E71' fill-opacity='0.05' d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z'/%3E%3C/svg%3E");
+            opacity: 0.3;
+            z-index: 0;
+        }
+
+        .cellular-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cellular-image {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+
+        .cellular-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.6s ease;
+        }
+
+        .cellular-content h2 {
+            text-align: left;
+            margin-bottom: 2rem;
+            font-size: 2.5rem;
+        }
+
+        .cellular-content h2:after {
+            left: 40px;
+            transform: none;
+        }
+
+        .cellular-content p {
+            margin-bottom: 1.8rem;
+            color: var(--text-light);
+            font-weight: 300;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .cellular-list {
+            margin-left: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .cellular-list li {
+            margin-bottom: 1rem;
+            color: var(--text-light);
+            font-weight: 300;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+        
+        /* Fun cellular content for middle schoolers */
+        .fun-fact-box {
+            background-color: #FFF8E1;
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            border-left: 5px solid var(--accent);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+            animation: pulse 5s infinite alternate ease-in-out;
+        }
+
+        .fun-fact-box h3 {
+            color: var(--accent);
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .fun-fact-box p {
+            color: var(--text-dark);
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .cell-animation {
+            position: relative;
+            height: 200px;
+            background-color: #F0F8FF;
+            border-radius: 15px;
+            margin: 2rem 0;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .bacteria {
+            position: absolute;
+            width: 40px;
+            height: 15px;
+            background-color: #9C27B0;
+            border-radius: 20px;
+            animation: moveBacteria 10s infinite linear;
+        }
+        
+        .bacteria::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: 5px;
+            width: 10px;
+            height: 10px;
+            background-color: #7B1FA2;
+            border-radius: 50%;
+        }
+        
+        .bacteria::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            right: 5px;
+            width: 10px;
+            height: 10px;
+            background-color: #7B1FA2;
+            border-radius: 50%;
+        }
+        
+        .immune-cell {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background-color: #4CAF50;
+            border-radius: 50%;
+            animation: chaseImmuneCell 15s infinite linear;
+        }
+        
+        .blood-vessel {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background-color: rgba(244, 67, 54, 0.2);
+            transform: translateY(-50%);
+            border-radius: 30px;
+        }
+        
+        /* 2D Organ Graphics */
+        .heart-graphic {
+            width: 80px;
+            height: 80px;
+            position: relative;
+            margin: 15px;
+            animation: pulse 1.2s infinite;
+        }
+        
+        .heart-graphic::before, 
+        .heart-graphic::after {
+            content: "";
+            position: absolute;
+            width: 40px;
+            height: 60px;
+            background-color: #E53935;
+            border-radius: 40px 40px 0 0;
+        }
+        
+        .heart-graphic::before {
+            left: 0;
+            transform: rotate(-45deg);
+            transform-origin: 100% 100%;
+        }
+        
+        .heart-graphic::after {
+            right: 0;
+            transform: rotate(45deg);
+            transform-origin: 0 100%;
+        }
+        
+        .brain-graphic {
+            width: 100px;
+            height: 80px;
+            position: relative;
+            background-color: #F48FB1;
+            border-radius: 50px 50px 0 0;
+            margin: 15px;
+        }
+        
+        .brain-graphic::before, 
+        .brain-graphic::after {
+            content: "";
+            position: absolute;
+            background-color: #F48FB1;
+        }
+        
+        .brain-graphic::before {
+            width: 20px;
+            height: 40px;
+            top: 10px;
+            left: 20px;
+            border-radius: 10px;
+            transform: rotate(-30deg);
+        }
+        
+        .brain-graphic::after {
+            width: 20px;
+            height: 40px;
+            top: 10px;
+            right: 20px;
+            border-radius: 10px;
+            transform: rotate(30deg);
+        }
+        
+        .nerve-graphic {
+            width: 120px;
+            height: 80px;
+            position: relative;
+            margin: 15px;
+        }
+        
+        .nerve-cell {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            background-color: #7986CB;
+            border-radius: 50%;
+            top: 20px;
+            left: 40px;
+        }
+        
+        .nerve-axon {
+            position: absolute;
+            width: 80px;
+            height: 6px;
+            background-color: #7986CB;
+            top: 37px;
+            left: 0;
+        }
+        
+        .nerve-dendrites {
+            position: absolute;
+        }
+        
+        .dendrite {
+            position: absolute;
+            width: 4px;
+            height: 20px;
+            background-color: #7986CB;
+        }
+        
+        .dendrite:nth-child(1) {
+            top: 10px;
+            left: 50px;
+            transform: rotate(-45deg);
+        }
+        
+        .dendrite:nth-child(2) {
+            top: 10px;
+            left: 60px;
+            transform: rotate(0deg);
+        }
+        
+        .dendrite:nth-child(3) {
+            top: 10px;
+            left: 70px;
+            transform: rotate(45deg);
+        }
+        
+        .dendrite:nth-child(4) {
+            top: 30px;
+            left: 80px;
+            transform: rotate(90deg);
+        }
+        
+        .dendrite:nth-child(5) {
+            top: 50px;
+            left: 70px;
+            transform: rotate(135deg);
+        }
+        
+        .dendrite:nth-child(6) {
+            top: 50px;
+            left: 60px;
+            transform: rotate(180deg);
+        }
+        
+        .dendrite:nth-child(7) {
+            top: 50px;
+            left: 50px;
+            transform: rotate(225deg);
+        }
+        
+        /* Text effects */
+        .highlight {
+            color: var(--accent);
+            font-weight: bold;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        
+        .glow {
+            text-decoration: underline;
+            text-decoration-color: var(--accent);
+            text-decoration-thickness: 2px;
+            text-underline-offset: 3px;
+            font-weight: bold;
+        }
+        
+        .shake {
+            display: inline-block;
+            animation: shake 0.5s infinite;
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+        
+        .zoom {
+            display: inline-block;
+            animation: zoom 2s infinite alternate;
+        }
+        
+        @keyframes zoom {
+            from { transform: scale(1); }
+            to { transform: scale(1.2); }
+        }
+        
+        @keyframes moveBacteria {
+            0% {
+                left: -50px;
+                top: 50%;
+                transform: rotate(0deg);
+            }
+            25% {
+                left: 25%;
+                top: 30%;
+                transform: rotate(45deg);
+            }
+            50% {
+                left: 50%;
+                top: 60%;
+                transform: rotate(90deg);
+            }
+            75% {
+                left: 75%;
+                top: 40%;
+                transform: rotate(135deg);
+            }
+            100% {
+                left: 120%;
+                top: 50%;
+                transform: rotate(180deg);
+            }
+        }
+        
+        @keyframes chaseImmuneCell {
+            0% {
+                left: -30px;
+                top: 60%;
+            }
+            30% {
+                left: 30%;
+                top: 35%;
+            }
+            60% {
+                left: 60%;
+                top: 65%;
+            }
+            100% {
+                left: 120%;
+                top: 45%;
+            }
         }
 
         /* Animations */
@@ -2223,6 +3163,19 @@
             .dress-game-area {
                 flex-direction: column;
             }
+            
+            .cellular-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cellular-content h2 {
+                text-align: center;
+            }
+
+            .cellular-content h2:after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
 
             section {
                 padding: 4rem 0;
@@ -2279,15 +3232,16 @@
                 <a href="#" class="logo">Beneath The Bite</a>
                 <button class="mobile-menu-btn" id="mobile-menu-toggle">☰</button>
                 <ul class="nav-links">
-                    <li><a href="#about">ABOUT LYME</a></li>
+                    <li><a href="#about">LYME 101</a></li>
                     <li><a href="#symptoms">SYMPTOMS</a></li>
-                    <li><a href="#initiative">OUR INITIATIVE</a></li>
-                    <li><a href="#celebrity">CELEBRITY IMPACT</a></li>
-                    <li><a href="#team">OUR TEAM</a></li>
-                    <li><a href="#dress-game">DRESS PROTECTIVELY</a></li>
+                    <li><a href="#cellular">INSIDE THE BODY</a></li>
                     <li><a href="#prevention">PREVENTION</a></li>
-                    <li><a href="#game">GAMES</a></li>
-                    <li><a href="#contact">CONTACT US</a></li>
+                    <li><a href="#dress-game">TICK-SAFE GEAR</a></li>
+                    <li><a href="#celebrity">FAMOUS CASES</a></li>
+                    <li><a href="#initiative">OUR MISSION</a></li>
+                    <li><a href="#team">MEET THE TEAM</a></li>
+                    <li><a href="#game">PLAY & LEARN</a></li>
+                    <li><a href="#contact">CONTACT</a></li>
                 </ul>
             </nav>
         </div>
@@ -2297,8 +3251,8 @@
         <div class="container">
             <div class="hero-content">
                 <h1>UNDERSTANDING LYME DISEASE</h1>
-                <p>Join our mission to raise awareness about Lyme disease, its symptoms, prevention, and treatment options. Early detection can make all the difference.</p>
-                <a href="#dress-game" class="btn">LEARN HOW TO PROTECT YOURSELF</a>
+                <p>Join our mission to raise awareness about Lyme disease, its symptoms, prevention, and how it affects the body at a <span class="highlight">cellular level</span>. Early detection can make all the difference.</p>
+                <a href="#about" class="btn">LEARN ABOUT LYME DISEASE</a>
             </div>
         </div>
     </section>
@@ -2306,66 +3260,174 @@
     <section id="about" class="info-section">
         <div class="container">
             <div class="section-title-container">
-                <h2>WHAT IS LYME DISEASE?</h2>
+                <h2>LYME 101</h2>
             </div>
             <p class="section-intro">
                 Lyme disease is a bacterial infection primarily transmitted through the bite of infected black-legged ticks. 
-                It can cause a wide range of symptoms and, if left untreated, can affect multiple body systems.
+                It can cause a wide range of symptoms and, if left untreated, can affect <span class="glow">multiple body systems</span>.
             </p>
             <div class="info-grid">
                 <div class="info-item">
                     <div class="info-icon">🦠</div>
                     <h3>BACTERIAL INFECTION</h3>
-                    <p>Caused by the bacterium Borrelia burgdorferi, transmitted through tick bites. Early detection is crucial for effective treatment.</p>
+                    <p>Caused by the bacterium Borrelia burgdorferi, transmitted through tick bites. These <span class="highlight">spiral-shaped bacteria</span> can penetrate tissues and evade the immune system, making early detection crucial for effective treatment.</p>
                 </div>
                 <div class="info-item">
                     <div class="info-icon">🌍</div>
                     <h3>GEOGRAPHIC DISTRIBUTION</h3>
-                    <p>Most common in the Northeast, Mid-Atlantic, Upper Midwest, and Pacific Northwest regions, but cases have been reported worldwide.</p>
+                    <p>Most common in the Northeast, Mid-Atlantic, Upper Midwest, and Pacific Northwest regions of the United States, but cases have been reported worldwide, particularly in Europe and Asia.</p>
                 </div>
                 <div class="info-item">
                     <div class="info-icon">⏱️</div>
                     <h3>TRANSMISSION TIME</h3>
-                    <p>A tick typically needs to be attached for 36-48 hours to transmit Lyme disease, making regular tick checks an important prevention method.</p>
+                    <p>A tick typically needs to be attached for <span class="shake">36-48 hours</span> to transmit Lyme disease. During this time, the bacteria multiply in the tick's gut and migrate to its salivary glands, making regular tick checks an important prevention method.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="celebrity" class="celebrity-section">
+    <section id="symptoms" class="prevention-section">
         <div class="container">
             <div class="section-title-container">
-                <h2>CELEBRITY IMPACT: JUSTIN BIEBER'S BATTLE WITH LYME DISEASE</h2>
+                <h2>SYMPTOMS</h2>
             </div>
-            <div class="celebrity-container">
-                <div class="celebrity-content">
-                    <div class="celebrity-image">
-                        <img src="https://images.pexels.com/photos/1468379/pexels-photo-1468379.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Justin Bieber">
-                    </div>
-                    <div class="celebrity-text">
-                        <h3>DID YOU KNOW?</h3>
-                        <p>In January 2020, global pop star Justin Bieber revealed that he had been diagnosed with Lyme disease. The singer shared that he had been struggling with unexplained health issues for years before receiving his diagnosis.</p>
-                        <p>Bieber described experiencing symptoms including extreme fatigue, brain fog, and physical weakness that affected his ability to perform and his overall quality of life. His public disclosure helped raise awareness about Lyme disease and its often misunderstood symptoms.</p>
-                        <p>Like many Lyme disease patients, Bieber faced challenges with diagnosis and treatment. His openness about his condition has helped reduce stigma and encouraged others to seek proper medical attention for similar symptoms.</p>
+            <p class="section-intro">
+                Symptoms of Lyme disease can vary widely and may appear in stages. <span class="zoom">Early recognition</span> and treatment are crucial for preventing long-term complications.
+            </p>
+            <div class="cards">
+                <div class="card">
+                    <img src="https://images.pexels.com/photos/4047186/pexels-photo-4047186.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Bull's eye rash (Erythema migrans)" class="card-img">
+                    <div class="card-content">
+                        <h3>EARLY STAGE (3-30 DAYS)</h3>
+                        <p>Characteristic "bull's-eye" rash (Erythema migrans) appears in 70-80% of infected people. Other symptoms include fever, chills, fatigue, body aches, headache, and swollen lymph nodes.</p>
                     </div>
                 </div>
-                <p>Other celebrities who have battled Lyme disease include Avril Lavigne, Bella Hadid, Shania Twain, and Alec Baldwin. Their stories highlight how this disease can affect anyone, regardless of their lifestyle or resources.</p>
+                <div class="card">
+                    <img src="https://images.pexels.com/photos/5938322/pexels-photo-5938322.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Joint pain" class="card-img">
+                    <div class="card-content">
+                        <h3>EARLY DISSEMINATED STAGE</h3>
+                        <p>Additional rashes, severe headaches, neck stiffness, facial palsy (loss of muscle tone), arthritis with severe joint pain, heart palpitations, and dizziness as bacteria spread through the bloodstream.</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="https://images.pexels.com/photos/7659564/pexels-photo-7659564.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Neurological symptoms" class="card-img">
+                    <div class="card-content">
+                        <h3>LATE STAGE</h3>
+                        <p>Arthritis with severe joint pain and swelling, neurological problems such as numbness, cognitive difficulties, memory problems, and persistent fatigue as the infection damages tissues throughout the body.</p>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <section id="initiative" class="initiative-section">
+    <section id="cellular" class="cellular-effects-section">
         <div class="container">
-            <div class="initiative-grid">
-                <div class="initiative-image">
-                    <img src="https://images.pexels.com/photos/6646918/pexels-photo-6646918.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Team working on Lyme disease awareness">
+            <div class="section-title-container">
+                <h2>INSIDE THE BODY</h2>
+            </div>
+            <p class="section-intro">
+                Lyme disease is more than just its visible symptoms. The Borrelia bacteria cause complex changes at the cellular and tissue levels throughout the body.
+            </p>
+            
+            <div class="fun-fact-box">
+                <h3>COOL FACT: BACTERIAL NINJAS! 🥷</h3>
+                <p>Did you know that Lyme bacteria are shaped like <span class="highlight">corkscrews</span>? This spiral shape helps them drill through your tissues like tiny ninja warriors! They can swim through your body fluids and even hide from your immune system by changing their outer "clothes" (surface proteins).</p>
+            </div>
+            
+            <div class="cell-animation">
+                <div class="blood-vessel"></div>
+                <div class="bacteria"></div>
+                <div class="immune-cell"></div>
+            </div>
+            
+            <div class="cellular-grid">
+                <div class="cellular-image">
+                    <img src="https://images.pexels.com/photos/3825527/pexels-photo-3825527.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Microscopic view of cells">
                 </div>
-                <div class="initiative-content">
-                    <h2>OUR INITIATIVE</h2>
-                    <p>Beneath The Bite was founded with a clear mission: to provide accurate information about Lyme disease and increase public awareness through education and interactive learning.</p>
-                    <p>Our team of healthcare professionals, researchers, and patient advocates works tirelessly to develop resources that help people understand the risks, recognize symptoms, and take preventive measures against Lyme disease.</p>
-                    <p>Through community outreach, educational programs, and innovative digital tools, we aim to reduce the incidence of Lyme disease and improve outcomes for those affected by it.</p>
-                    <a href="#contact" class="btn">JOIN OUR CAUSE</a>
+                <div class="cellular-content">
+                    <h2>CELLULAR INVASION & IMMUNE RESPONSE</h2>
+                    <p>When Borrelia burgdorferi enters the body through a tick bite, it begins an epic journey through your body:</p>
+                    <ul class="cellular-list">
+                        <li><strong class="glow">Skin Invasion:</strong> After a tick bite, the bacteria start multiplying in your skin, causing that famous bull's-eye rash. It's like they're throwing a bacteria party right under your skin!</li>
+                        <li><strong class="glow">Bloodstream Adventure:</strong> These corkscrew-shaped bacteria can drill through your blood vessels and travel through your bloodstream like they're on a water slide, spreading to different parts of your body.</li>
+                        <li><strong class="glow">Master of Disguise:</strong> The bacteria are like chameleons! They can change their appearance to trick your immune system, making it harder for your body to find and destroy them.</li>
+                        <li><strong class="glow">Tissue Takeover:</strong> These sneaky bacteria can invade your joints, heart, and even your brain, causing inflammation and damage.</li>
+                    </ul>
+                    <p>Your body tries to fight back by sending immune cells (like tiny soldiers) to battle the infection, but sometimes the bacteria are just too tricky!</p>
+                </div>
+            </div>
+            
+            <div style="display: flex; justify-content: space-around; margin-top: 50px; margin-bottom: 30px;">
+                <div class="heart-graphic"></div>
+                <div class="brain-graphic"></div>
+                <div class="nerve-graphic">
+                    <div class="nerve-cell"></div>
+                    <div class="nerve-axon"></div>
+                    <div class="nerve-dendrites">
+                        <div class="dendrite"></div>
+                        <div class="dendrite"></div>
+                        <div class="dendrite"></div>
+                        <div class="dendrite"></div>
+                        <div class="dendrite"></div>
+                        <div class="dendrite"></div>
+                        <div class="dendrite"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="fun-fact-box" style="margin-top: 3rem;">
+                <h3>GROSS BUT COOL: BACTERIAL BIOFILMS! 🧫</h3>
+                <p>Lyme bacteria can create slimy protective shields called "<span class="highlight">biofilms</span>" where they hide together. Think of it like a bacteria fort made of slime that protects them from antibiotics and your immune system. This is one reason why Lyme disease can be hard to treat!</p>
+            </div>
+            
+            <div class="cellular-grid" style="margin-top: 4rem;">
+                <div class="cellular-content">
+                    <h2>ORGAN SYSTEM EFFECTS</h2>
+                    <p>As the infection continues, the bacteria can affect different parts of your body:</p>
+                    <ul class="cellular-list">
+                        <li><strong class="glow">Joints:</strong> The bacteria can make your joints swell up and hurt, like having a tiny bacterial dance party in your knees or elbows. Ouch!</li>
+                        <li><strong class="glow">Brain and Nerves:</strong> These bacteria can sneak past the special barrier that protects your brain and cause inflammation. This is why some people with Lyme disease have trouble thinking clearly or feel tingling in their hands and feet.</li>
+                        <li><strong class="glow">Heart:</strong> Lyme bacteria can invade your heart tissue and mess with its normal beating pattern. It's like they're trying to DJ your heartbeat, but they're terrible at it!</li>
+                        <li><strong class="glow">Stealth Mode:</strong> Sometimes the bacteria can go into "hibernation" mode where they barely move or grow. This makes them super hard for medicines to find and kill - sneaky!</li>
+                    </ul>
+                    <p>Understanding how these bacteria work helps scientists develop better ways to detect and treat Lyme disease. Early treatment is super important before these bacteria can spread throughout your body!</p>
+                </div>
+                <div class="cellular-image">
+                    <img src="https://images.pexels.com/photos/356040/pexels-photo-356040.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Medical research">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="prevention" class="info-section">
+        <div class="container">
+            <div class="section-title-container">
+                <h2>PREVENTION</h2>
+            </div>
+            <p class="section-intro">
+                The best way to prevent Lyme disease is to avoid tick bites. Here are some essential prevention strategies to keep in mind.
+            </p>
+            <div class="cards">
+                <div class="card">
+                    <img src="https://images.pexels.com/photos/6647037/pexels-photo-6647037.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Protective clothing" class="card-img">
+                    <div class="card-content">
+                        <h3>DRESS PROTECTIVELY</h3>
+                        <p>Wear long sleeves, long pants tucked into socks, and closed-toe shoes when in wooded or grassy areas. Light-colored clothing makes it easier to spot ticks before they attach to your skin.</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="https://images.pexels.com/photos/5938358/pexels-photo-5938358.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Insect repellent" class="card-img">
+                    <div class="card-content">
+                        <h3>USE REPELLENTS</h3>
+                        <p>Apply EPA-registered insect repellents containing DEET, picaridin, or IR3535. Treat clothing and gear with products containing 0.5% permethrin for additional protection.</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="https://images.pexels.com/photos/6647127/pexels-photo-6647127.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Tick check" class="card-img">
+                    <div class="card-content">
+                        <h3>CHECK FOR TICKS</h3>
+                        <p>Conduct a full-body tick check after being outdoors. Pay special attention to armpits, scalp, and groin areas. Shower within two hours of coming indoors to wash off unattached ticks.</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -2374,51 +3436,160 @@
     <section id="dress-game" class="dress-game-section">
         <div class="container">
             <div class="section-title-container">
-                <h2>DRESS PROTECTIVELY: CHOOSE YOUR OUTDOOR ATTIRE</h2>
+                <h2>TICK-SAFE GEAR</h2>
             </div>
             <div class="dress-game-container">
                 <h3 class="dress-game-title">DRESS SAFELY FOR TICK-PRONE AREAS</h3>
-                <p class="dress-game-description">Select appropriate clothing items to protect yourself from ticks when outdoors. Choose wisely to minimize your risk of tick bites and Lyme disease.</p>
+                <p class="dress-game-description">Proper clothing is your first line of defense against tick bites. Select appropriate clothing items to protect yourself when outdoors. Choose wisely to minimize your risk of tick bites and Lyme disease.</p>
                 
                 <div class="dress-game-area">
                     <div class="clothing-options">
-                        <div class="clothing-item" data-item="hat" data-safe="true">
-                            <img src="https://images.pexels.com/photos/1124465/pexels-photo-1124465.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Hat">
-                            <p>WIDE-BRIMMED HAT</p>
+                        <div class="clothing-category">
+                            <h4 class="clothing-category-title">HEADWEAR</h4>
+                            <div class="clothing-item" data-item="hat" data-safe="true" data-category="headwear">
+                                <div class="clothing-item-graphic">
+                                    <div class="hat-graphic">
+                                        <div class="hat-wide"></div>
+                                    </div>
+                                </div>
+                                <p>WIDE-BRIMMED HAT</p>
+                            </div>
+                            <div class="clothing-item" data-item="sunglasses" data-safe="false" data-category="headwear">
+                                <div class="clothing-item-graphic">
+                                    <div class="sunglasses-graphic">
+                                        <div class="sunglasses-frame">
+                                            <div class="sunglasses-lens"></div>
+                                            <div class="sunglasses-lens"></div>
+                                        </div>
+                                        <div class="sunglasses-bridge"></div>
+                                    </div>
+                                </div>
+                                <p>SUNGLASSES</p>
+                            </div>
                         </div>
-                        <div class="clothing-item" data-item="sunglasses" data-safe="false">
-                            <img src="https://images.pexels.com/photos/701877/pexels-photo-701877.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Sunglasses">
-                            <p>SUNGLASSES</p>
+                        
+                        <div class="clothing-category">
+                            <h4 class="clothing-category-title">TOPS</h4>
+                            <div class="clothing-item" data-item="long-sleeve" data-safe="true" data-category="top">
+                                <div class="clothing-item-graphic">
+                                    <div class="long-sleeve-graphic">
+                                        <div class="long-sleeve-body"></div>
+                                        <div class="long-sleeve-arm-left"></div>
+                                        <div class="long-sleeve-arm-right"></div>
+                                    </div>
+                                </div>
+                                <p>LONG-SLEEVED SHIRT</p>
+                            </div>
+                            <div class="clothing-item" data-item="t-shirt" data-safe="false" data-category="top">
+                                <div class="clothing-item-graphic">
+                                    <div class="tshirt-graphic">
+                                        <div class="tshirt-body"></div>
+                                        <div class="tshirt-arm-left"></div>
+                                        <div class="tshirt-arm-right"></div>
+                                    </div>
+                                </div>
+                                <p>T-SHIRT</p>
+                            </div>
                         </div>
-                        <div class="clothing-item" data-item="long-sleeve" data-safe="true">
-                            <img src="https://images.pexels.com/photos/6311387/pexels-photo-6311387.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Long-sleeved Shirt">
-                            <p>LONG-SLEEVED SHIRT</p>
+                        
+                        <div class="clothing-category">
+                            <h4 class="clothing-category-title">BOTTOMS</h4>
+                            <div class="clothing-item" data-item="long-pants" data-safe="true" data-category="bottom">
+                                <div class="clothing-item-graphic">
+                                    <div class="long-pants-graphic">
+                                        <div class="long-pants-top"></div>
+                                        <div class="long-pants-leg-left"></div>
+                                        <div class="long-pants-leg-right"></div>
+                                    </div>
+                                </div>
+                                <p>LONG PANTS</p>
+                            </div>
+                            <div class="clothing-item" data-item="shorts" data-safe="false" data-category="bottom">
+                                <div class="clothing-item-graphic">
+                                    <div class="shorts-graphic">
+                                        <div class="shorts-top"></div>
+                                        <div class="shorts-leg-left"></div>
+                                        <div class="shorts-leg-right"></div>
+                                    </div>
+                                </div>
+                                <p>SHORTS</p>
+                            </div>
                         </div>
-                        <div class="clothing-item" data-item="t-shirt" data-safe="false">
-                            <img src="https://images.pexels.com/photos/6347892/pexels-photo-6347892.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="T-shirt">
-                            <p>T-SHIRT</p>
-                        </div>
-                        <div class="clothing-item" data-item="long-pants" data-safe="true">
-                            <img src="https://images.pexels.com/photos/52518/jeans-pants-blue-shop-52518.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Long Pants">
-                            <p>LONG PANTS</p>
-                        </div>
-                        <div class="clothing-item" data-item="shorts" data-safe="false">
-                            <img src="https://images.pexels.com/photos/6311154/pexels-photo-6311154.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Shorts">
-                            <p>SHORTS</p>
-                        </div>
-                        <div class="clothing-item" data-item="boots" data-safe="true">
-                            <img src="https://images.pexels.com/photos/267242/pexels-photo-267242.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Boots">
-                            <p>CLOSED BOOTS</p>
-                        </div>
-                        <div class="clothing-item" data-item="sandals" data-safe="false">
-                            <img src="https://images.pexels.com/photos/2562992/pexels-photo-2562992.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Sandals">
-                            <p>SANDALS</p>
+                        
+                        <div class="clothing-category">
+                            <h4 class="clothing-category-title">FOOTWEAR</h4>
+                            <div class="clothing-item" data-item="boots" data-safe="true" data-category="footwear">
+                                <div class="clothing-item-graphic">
+                                    <div class="boots-graphic">
+                                        <div class="boots-left">
+                                            <div class="boot-top"></div>
+                                            <div class="boot-bottom"></div>
+                                        </div>
+                                        <div class="boots-right">
+                                            <div class="boot-top"></div>
+                                            <div class="boot-bottom"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p>CLOSED BOOTS</p>
+                            </div>
+                            <div class="clothing-item" data-item="sandals" data-safe="false" data-category="footwear">
+                                <div class="clothing-item-graphic">
+                                    <div class="sandals-graphic">
+                                        <div class="sandal-left">
+                                            <div class="sandal-strap"></div>
+                                        </div>
+                                        <div class="sandal-right">
+                                            <div class="sandal-strap"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p>SANDALS</p>
+                            </div>
                         </div>
                     </div>
                     
                     <div class="character-display">
-                        <div class="character-image" id="character-image">
-                            <!-- Worn items will be added here -->
+                        <div class="character-container">
+                            <!-- Environment elements -->
+                            <div class="sun">
+                                <div class="sun-ray" style="transform: rotate(0deg) translateX(40px);"></div>
+                                <div class="sun-ray" style="transform: rotate(45deg) translateX(40px);"></div>
+                                <div class="sun-ray" style="transform: rotate(90deg) translateX(40px);"></div>
+                                <div class="sun-ray" style="transform: rotate(135deg) translateX(40px);"></div>
+                                <div class="sun-ray" style="transform: rotate(180deg) translateX(40px);"></div>
+                                <div class="sun-ray" style="transform: rotate(225deg) translateX(40px);"></div>
+                                <div class="sun-ray" style="transform: rotate(270deg) translateX(40px);"></div>
+                                <div class="sun-ray" style="transform: rotate(315deg) translateX(40px);"></div>
+                            </div>
+                            
+                            <!-- Animated Clouds -->
+                            <div class="cloud cloud-1"></div>
+                            <div class="cloud cloud-2"></div>
+                            <div class="cloud cloud-3"></div>
+                            
+                            <div class="grass">
+                                <div class="grass-blade" style="left: 10%; transform: rotate(-5deg); animation-delay: 0.2s;"></div>
+                                <div class="grass-blade" style="left: 15%; height: 40px; transform: rotate(3deg); animation-delay: 0.5s;"></div>
+                                <div class="grass-blade" style="left: 25%; transform: rotate(-8deg); animation-delay: 0.8s;"></div>
+                                <div class="grass-blade" style="left: 35%; height: 45px; transform: rotate(5deg); animation-delay: 1.1s;"></div>
+                                <div class="grass-blade" style="left: 45%; transform: rotate(-2deg); animation-delay: 1.4s;"></div>
+                                <div class="grass-blade" style="left: 55%; height: 35px; transform: rotate(7deg); animation-delay: 1.7s;"></div>
+                                <div class="grass-blade" style="left: 65%; transform: rotate(-6deg); animation-delay: 2.0s;"></div>
+                                <div class="grass-blade" style="left: 75%; height: 38px; transform: rotate(4deg); animation-delay: 2.3s;"></div>
+                                <div class="grass-blade" style="left: 85%; transform: rotate(-3deg); animation-delay: 2.6s;"></div>
+                                <div class="grass-blade" style="left: 95%; height: 42px; transform: rotate(6deg); animation-delay: 2.9s;"></div>
+                            </div>
+                            
+                            <div class="stick-figure">
+                                <div class="head"></div>
+                                <div class="body"></div>
+                                <div class="arm-left"></div>
+                                <div class="arm-right"></div>
+                                <div class="leg-left"></div>
+                                <div class="leg-right"></div>
+                                <!-- Clothing items will be added here by JavaScript -->
+                            </div>
                         </div>
                         <button id="check-outfit" class="game-btn">CHECK MY OUTFIT</button>
                         <div class="dress-feedback" id="dress-feedback"></div>
@@ -2430,6 +3601,49 @@
                     <p>Click on clothing items to select them for your outdoor adventure. Try to choose items that will provide the best protection against ticks. Once you've made your selections, click "CHECK MY OUTFIT" to see how well protected you would be.</p>
                     <p><strong>Remember:</strong> Light-colored, long-sleeved shirts, long pants tucked into socks or boots, and closed-toe shoes provide the best protection in tick-prone areas.</p>
                 </div>
+                
+                <div style="text-align: center; margin-top: 20px;">
+                    <a href="https://www.youtube.com/watch?v=UEayubyaY-U&t=75s" target="_blank" class="btn">WATCH: HOW TO PROTECT YOURSELF FROM TICKS</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="celebrity" class="celebrity-section">
+        <div class="container">
+            <div class="section-title-container">
+                <h2>FAMOUS CASES</h2>
+            </div>
+            <div class="celebrity-container">
+                <div class="celebrity-content">
+                    <div class="celebrity-image">
+                        <img src="https://images.pexels.com/photos/7319/love-romantic-date-dinner.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Celebrity with Lyme Disease">
+                    </div>
+                    <div class="celebrity-text">
+                        <h3>DID YOU KNOW?</h3>
+                        <p>In January 2020, global pop star <span class="highlight">Justin Bieber</span> revealed that he had been diagnosed with Lyme disease. The singer shared that he had been struggling with unexplained health issues for years before receiving his diagnosis.</p>
+                        <p>Bieber described experiencing symptoms including <span class="glow">extreme fatigue</span>, <span class="glow">brain fog</span>, and <span class="glow">physical weakness</span> that affected his ability to perform and his overall quality of life. His public disclosure helped raise awareness about Lyme disease and its often misunderstood symptoms.</p>
+                        <p>Like many Lyme disease patients, Bieber faced challenges with diagnosis and treatment. His openness about his condition has helped reduce stigma and encouraged others to seek proper medical attention for similar symptoms.</p>
+                    </div>
+                </div>
+                <p>Other celebrities who have battled Lyme disease include <span class="highlight">Avril Lavigne</span>, <span class="highlight">Bella Hadid</span>, <span class="highlight">Shania Twain</span>, and <span class="highlight">Alec Baldwin</span>. Their stories highlight how this disease can affect anyone, regardless of their lifestyle or resources.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="initiative" class="initiative-section">
+        <div class="container">
+            <div class="initiative-grid">
+                <div class="initiative-image">
+                    <img src="https://images.pexels.com/photos/6646918/pexels-photo-6646918.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Team working on Lyme disease awareness">
+                </div>
+                <div class="initiative-content">
+                    <h2>OUR MISSION</h2>
+                    <p>Beneath The Bite was founded with a clear mission: to provide <span class="highlight">accurate information</span> about Lyme disease and increase public awareness through education and interactive learning.</p>
+                    <p>Our team of healthcare professionals, researchers, and patient advocates works tirelessly to develop resources that help people understand the risks, recognize symptoms, and take preventive measures against Lyme disease.</p>
+                    <p>Through community outreach, educational programs, and innovative digital tools, we aim to reduce the incidence of Lyme disease and improve outcomes for those affected by it.</p>
+                    <a href="#contact" class="btn">JOIN OUR CAUSE</a>
+                </div>
             </div>
         </div>
     </section>
@@ -2437,94 +3651,34 @@
     <section id="team" class="team-section">
         <div class="container">
             <div class="section-title-container">
-                <h2>MEET OUR COFOUNDERS</h2>
+                <h2>MEET THE TEAM</h2>
             </div>
             <p class="section-intro">
                 Our dedicated team brings together expertise from healthcare education and patient advocacy to create comprehensive resources on Lyme disease awareness.
             </p>
             <div class="team-grid">
                 <div class="team-member">
-                    <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Faria Rahmani" class="team-img">
+                    <img src="https://images.pexels.com/photos/5052847/pexels-photo-5052847.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Dr. Sarah Johnson" class="team-img">
                     <div class="team-content">
-                        <h3>FARIA RAHMANI</h3>
-                        <div class="team-role">PROJECT LEAD & HEALTH EDUCATOR</div>
-                        <p>4th year undergraduate student majoring in Human Biology and Molecular Biology at University of Toronto Scarborough. Passionate about infectious disease education and public health awareness.</p>
+                        <h3>DR. SARAH JOHNSON</h3>
+                        <div class="team-role">MEDICAL DIRECTOR</div>
+                        <p>Infectious disease specialist with 15 years of experience researching tick-borne illnesses. Dr. Johnson leads our medical education initiatives and ensures all content is scientifically accurate.</p>
                     </div>
                 </div>
                 <div class="team-member">
-                    <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Gabrielle Ann La Paz" class="team-img">
+                    <img src="https://images.pexels.com/photos/5327585/pexels-photo-5327585.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Michael Chen" class="team-img">
                     <div class="team-content">
-                        <h3>GABRIELLE ANN LA PAZ</h3>
-                        <div class="team-role">PROJECT LEAD & HEALTH EDUCATOR</div>
-                        <p>4th year Health Studies and Human Biology major at University of Toronto Scarborough. Focused on community health education and patient advocacy through innovative educational approaches.</p>
+                        <h3>MICHAEL CHEN</h3>
+                        <div class="team-role">PATIENT ADVOCATE & OUTREACH COORDINATOR</div>
+                        <p>After his own experience with Lyme disease, Michael dedicated himself to patient advocacy. He coordinates our community outreach programs and support networks for Lyme disease patients.</p>
                     </div>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="symptoms" class="prevention-section">
-        <div class="container">
-            <div class="section-title-container">
-                <h2>RECOGNIZING SYMPTOMS</h2>
-            </div>
-            <p class="section-intro">
-                Symptoms of Lyme disease can vary widely and may appear in stages. Early recognition and treatment are crucial for preventing long-term complications.
-            </p>
-            <div class="cards">
-                <div class="card">
-                    <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Bull's eye rash" class="card-img">
-                    <div class="card-content">
-                        <h3>EARLY STAGE (3-30 DAYS)</h3>
-                        <p>Characteristic "bull's-eye" rash (Erythema migrans), fever, chills, fatigue, body aches, headache, and swollen lymph nodes.</p>
-                    </div>
-                </div>
-                <div class="card">
-                    <img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Joint pain" class="card-img">
-                    <div class="card-content">
-                        <h3>EARLY DISSEMINATED STAGE</h3>
-                        <p>Additional rashes, severe headaches, neck stiffness, facial palsy, arthritis with severe joint pain, heart palpitations, and dizziness.</p>
-                    </div>
-                </div>
-                <div class="card">
-                    <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Neurological symptoms" class="card-img">
-                    <div class="card-content">
-                        <h3>LATE STAGE</h3>
-                        <p>Arthritis with severe joint pain and swelling, neurological problems such as numbness, cognitive difficulties, and persistent fatigue.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="prevention" class="info-section">
-        <div class="container">
-            <div class="section-title-container">
-                <h2>PREVENTION TIPS</h2>
-            </div>
-            <p class="section-intro">
-                The best way to prevent Lyme disease is to avoid tick bites. Here are some essential prevention strategies to keep in mind.
-            </p>
-            <div class="cards">
-                <div class="card">
-                    <img src="https://images.unsplash.com/photo-1517677129300-07b130802f46?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Protective clothing" class="card-img">
-                    <div class="card-content">
-                        <h3>DRESS PROTECTIVELY</h3>
-                        <p>Wear long sleeves, pants, and closed-toe shoes when in wooded or grassy areas. Tuck pants into socks to prevent ticks from crawling up your legs.</p>
-                    </div>
-                </div>
-                <div class="card">
-                    <img src="https://images.unsplash.com/photo-1594623930572-300a3011d9ae?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Insect repellent" class="card-img">
-                    <div class="card-content">
-                        <h3>USE REPELLENTS</h3>
-                        <p>Apply EPA-registered insect repellents containing DEET, picaridin, or IR3535. Treat clothing and gear with products containing 0.5% permethrin.</p>
-                    </div>
-                </div>
-                <div class="card">
-                    <img src="https://images.unsplash.com/photo-1581056771107-24ca5f033842?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Tick check" class="card-img">
-                    <div class="card-content">
-                        <h3>CHECK FOR TICKS</h3>
-                        <p>Conduct a full-body tick check after being outdoors. Shower within two hours of coming indoors to wash off unattached ticks.</p>
+                <div class="team-member">
+                    <img src="https://images.pexels.com/photos/5490276/pexels-photo-5490276.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Dr. Emily Rodriguez" class="team-img">
+                    <div class="team-content">
+                        <h3>DR. EMILY RODRIGUEZ</h3>
+                        <div class="team-role">RESEARCH DIRECTOR</div>
+                        <p>Microbiologist specializing in the cellular effects of Borrelia bacteria. Dr. Rodriguez leads our research initiatives and translates complex scientific findings into accessible information.</p>
                     </div>
                 </div>
             </div>
@@ -2534,8 +3688,11 @@
     <section id="game" class="game-section">
         <div class="container">
             <div class="section-title-container">
-                <h2>INTERACTIVE LEARNING GAMES</h2>
+                <h2>PLAY & LEARN</h2>
             </div>
+            <p class="section-intro">
+                Learning about Lyme disease can be fun and engaging. Try our interactive games to test your knowledge and improve your awareness about ticks and Lyme disease prevention.
+            </p>
             <div class="game-tabs">
                 <button class="game-tab active" data-game="tick-game">TICK FINDER GAME</button>
                 <button class="game-tab" data-game="quiz-game">LYME DISEASE QUIZ</button>
@@ -2636,11 +3793,11 @@
                     <div class="difference-game-container">
                         <div class="difference-images">
                             <div class="difference-image-container">
-                                <img src="https://images.pexels.com/photos/1179229/pexels-photo-1179229.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Tick habitat image 1" class="difference-image" id="difference-image-1">
+                                <img src="https://images.pexels.com/photos/6647037/pexels-photo-6647037.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Tick habitat image 1" class="difference-image" id="difference-image-1">
                                 <!-- Spots will be added here by JavaScript -->
                             </div>
                             <div class="difference-image-container">
-                                <img src="https://images.pexels.com/photos/1179229/pexels-photo-1179229.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Tick habitat image 2" class="difference-image" id="difference-image-2">
+                                <img src="https://images.pexels.com/photos/6647037/pexels-photo-6647037.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Tick habitat image 2" class="difference-image" id="difference-image-2">
                                 <!-- Spots will be added here by JavaScript -->
                             </div>
                         </div>
@@ -2662,12 +3819,12 @@
         <div class="container">
             <div class="contact-content">
                 <div class="section-title-container">
-                    <h2>GET IN TOUCH</h2>
+                    <h2>CONTACT</h2>
                 </div>
                 <p>Have questions about Lyme disease or interested in supporting our initiative? We'd love to hear from you!</p>
                 <a href="mailto:beneaththebite@gmail.com" class="contact-email">beneaththebite@gmail.com</a>
                 <div class="social-links">
-                    <a href="#" class="social-link">
+                    <a href="https://www.facebook.com/beneaththebite" class="social-link" target="_blank">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
                     </a>
                     <a href="https://www.instagram.com/beneathbite" class="social-link" target="_blank">
@@ -2685,15 +3842,16 @@
         <div class="container">
             <a href="#" class="logo">Beneath The Bite</a>
             <ul class="footer-links">
-                <li><a href="#about">ABOUT LYME</a></li>
+                <li><a href="#about">LYME 101</a></li>
                 <li><a href="#symptoms">SYMPTOMS</a></li>
-                <li><a href="#initiative">OUR INITIATIVE</a></li>
-                <li><a href="#celebrity">CELEBRITY IMPACT</a></li>
-                <li><a href="#team">OUR TEAM</a></li>
-                <li><a href="#dress-game">DRESS PROTECTIVELY</a></li>
+                <li><a href="#cellular">INSIDE THE BODY</a></li>
                 <li><a href="#prevention">PREVENTION</a></li>
-                <li><a href="#game">GAMES</a></li>
-                <li><a href="#contact">CONTACT US</a></li>
+                <li><a href="#dress-game">TICK-SAFE GEAR</a></li>
+                <li><a href="#celebrity">FAMOUS CASES</a></li>
+                <li><a href="#initiative">OUR MISSION</a></li>
+                <li><a href="#team">MEET THE TEAM</a></li>
+                <li><a href="#game">PLAY & LEARN</a></li>
+                <li><a href="#contact">CONTACT</a></li>
             </ul>
             <p class="copyright">© 2025 Beneath The Bite. All rights reserved.</p>
         </div>
@@ -3440,54 +4598,51 @@
 
         // Dress Protectively Game
         const clothingItems = document.querySelectorAll('.clothing-item');
-        const characterImage = document.getElementById('character-image');
+        const stickFigure = document.querySelector('.stick-figure');
         const checkOutfitButton = document.getElementById('check-outfit');
         const dressFeedback = document.getElementById('dress-feedback');
 
-        let selectedClothing = [];
+        let selectedClothing = {
+            headwear: null,
+            top: null,
+            bottom: null,
+            footwear: null
+        };
 
         // Add click handler to clothing items
         clothingItems.forEach(item => {
             item.addEventListener('click', () => {
                 const itemType = item.getAttribute('data-item');
                 const isSafe = item.getAttribute('data-safe') === 'true';
+                const category = item.getAttribute('data-category');
                 
-                // Find if an item of the same category is already selected
-                // Categories: headwear, top, bottom, footwear
-                let category;
-                if (itemType === 'hat' || itemType === 'sunglasses') {
-                    category = 'headwear';
-                } else if (itemType === 'long-sleeve' || itemType === 't-shirt') {
-                    category = 'top';
-                } else if (itemType === 'long-pants' || itemType === 'shorts') {
-                    category = 'bottom';
-                } else if (itemType === 'boots' || itemType === 'sandals') {
-                    category = 'footwear';
+                // If an item in this category is already selected, deselect it
+                if (selectedClothing[category]) {
+                    const previousItem = document.querySelector(`.clothing-item[data-item="${selectedClothing[category].type}"]`);
+                    if (previousItem) {
+                        previousItem.classList.remove('selected');
+                    }
+                    
+                    // Remove from stick figure
+                    const existingClothingElem = stickFigure.querySelector(`.${category}-item`);
+                    if (existingClothingElem) existingClothingElem.remove();
                 }
                 
-                // Remove any existing selection in this category
-                const existingIndex = selectedClothing.findIndex(c => c.category === category);
-                if (existingIndex !== -1) {
-                    const existingItem = document.querySelector(`.clothing-item[data-item="${selectedClothing[existingIndex].type}"]`);
-                    existingItem.classList.remove('selected');
+                // If clicking the same item that's already selected, deselect it
+                if (selectedClothing[category] && selectedClothing[category].type === itemType) {
+                    selectedClothing[category] = null;
+                    item.classList.remove('selected');
+                } else {
+                    // Select the new item
+                    item.classList.add('selected');
+                    selectedClothing[category] = {
+                        type: itemType,
+                        safe: isSafe
+                    };
                     
-                    // Remove from character display
-                    const wornItem = document.querySelector(`.worn-item[data-type="${selectedClothing[existingIndex].type}"]`);
-                    if (wornItem) wornItem.remove();
-                    
-                    selectedClothing.splice(existingIndex, 1);
+                    // Update stick figure display
+                    addClothingToStickFigure(itemType, category);
                 }
-                
-                // Add new selection
-                item.classList.add('selected');
-                selectedClothing.push({
-                    type: itemType,
-                    category: category,
-                    safe: isSafe
-                });
-                
-                // Update character display
-                updateCharacterDisplay(itemType);
                 
                 // Reset feedback when selection changes
                 dressFeedback.className = 'dress-feedback';
@@ -3495,83 +4650,158 @@
             });
         });
 
-        function updateCharacterDisplay(itemType) {
-            // Create or update worn item on character
-            let wornItem = document.querySelector(`.worn-item[data-type="${itemType}"]`);
-            if (!wornItem) {
-                wornItem = document.createElement('div');
-                wornItem.className = 'worn-item';
-                wornItem.setAttribute('data-type', itemType);
-                characterImage.appendChild(wornItem);
-            }
+        function addClothingToStickFigure(itemType, category) {
+            // Remove existing item in this category if any
+            const existingItem = stickFigure.querySelector(`.${category}-item`);
+            if (existingItem) existingItem.remove();
             
-            // Set position and style based on item type
+            // Create new clothing item element
+            const clothingElem = document.createElement('div');
+            clothingElem.className = `${category}-item`;
+            
+            // Set appropriate class and styling based on item type
             switch(itemType) {
                 case 'hat':
-                    wornItem.style.backgroundImage = 'url("https://images.pexels.com/photos/1124465/pexels-photo-1124465.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2")';
-                    wornItem.style.backgroundSize = '60%';
-                    wornItem.style.backgroundPosition = 'top center';
-                    wornItem.style.zIndex = '10';
-                    wornItem.style.transform = 'translateY(-50px) scale(0.5)';
+                    const hatGraphic = document.createElement('div');
+                    hatGraphic.className = 'hat-graphic';
+                    const hatWide = document.createElement('div');
+                    hatWide.className = 'hat-wide';
+                    hatGraphic.appendChild(hatWide);
+                    clothingElem.appendChild(hatGraphic);
                     break;
                 case 'sunglasses':
-                    wornItem.style.backgroundImage = 'url("https://images.pexels.com/photos/701877/pexels-photo-701877.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2")';
-                    wornItem.style.backgroundSize = '30%';
-                    wornItem.style.backgroundPosition = '50% 15%';
-                    wornItem.style.zIndex = '9';
-                    wornItem.style.transform = 'translateY(-40px) scale(0.3)';
+                    const sunglassesGraphic = document.createElement('div');
+                    sunglassesGraphic.className = 'sunglasses-graphic';
+                    sunglassesGraphic.style.position = 'relative';
+                    sunglassesGraphic.style.top = '5px'; // Adjusted to position on face
+                    const sunglassesFrame = document.createElement('div');
+                    sunglassesFrame.className = 'sunglasses-frame';
+                    const lens1 = document.createElement('div');
+                    lens1.className = 'sunglasses-lens';
+                    const lens2 = document.createElement('div');
+                    lens2.className = 'sunglasses-lens';
+                    const bridge = document.createElement('div');
+                    bridge.className = 'sunglasses-bridge';
+                    sunglassesFrame.appendChild(lens1);
+                    sunglassesFrame.appendChild(lens2);
+                    sunglassesGraphic.appendChild(sunglassesFrame);
+                    sunglassesGraphic.appendChild(bridge);
+                    clothingElem.appendChild(sunglassesGraphic);
                     break;
                 case 'long-sleeve':
-                    wornItem.style.backgroundImage = 'url("https://images.pexels.com/photos/6311387/pexels-photo-6311387.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2")';
-                    wornItem.style.backgroundSize = '70%';
-                    wornItem.style.backgroundPosition = '50% 30%';
-                    wornItem.style.zIndex = '5';
-                    wornItem.style.transform = 'translateY(0) scale(0.7)';
+                    const longSleeveGraphic = document.createElement('div');
+                    longSleeveGraphic.className = 'long-sleeve-graphic';
+                    const sleeveBody = document.createElement('div');
+                    sleeveBody.className = 'long-sleeve-body';
+                    const sleeveLeft = document.createElement('div');
+                    sleeveLeft.className = 'long-sleeve-arm-left';
+                    const sleeveRight = document.createElement('div');
+                    sleeveRight.className = 'long-sleeve-arm-right';
+                    longSleeveGraphic.appendChild(sleeveBody);
+                    longSleeveGraphic.appendChild(sleeveLeft);
+                    longSleeveGraphic.appendChild(sleeveRight);
+                    clothingElem.appendChild(longSleeveGraphic);
                     break;
                 case 't-shirt':
-                    wornItem.style.backgroundImage = 'url("https://images.pexels.com/photos/6347892/pexels-photo-6347892.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2")';
-                    wornItem.style.backgroundSize = '70%';
-                    wornItem.style.backgroundPosition = '50% 30%';
-                    wornItem.style.zIndex = '5';
-                    wornItem.style.transform = 'translateY(0) scale(0.7)';
+                    const tshirtGraphic = document.createElement('div');
+                    tshirtGraphic.className = 'tshirt-graphic';
+                    const tshirtBody = document.createElement('div');
+                    tshirtBody.className = 'tshirt-body';
+                    const tshirtLeft = document.createElement('div');
+                    tshirtLeft.className = 'tshirt-arm-left';
+                    const tshirtRight = document.createElement('div');
+                    tshirtRight.className = 'tshirt-arm-right';
+                    tshirtGraphic.appendChild(tshirtBody);
+                    tshirtGraphic.appendChild(tshirtLeft);
+                    tshirtGraphic.appendChild(tshirtRight);
+                    clothingElem.appendChild(tshirtGraphic);
                     break;
                 case 'long-pants':
-                    wornItem.style.backgroundImage = 'url("https://images.pexels.com/photos/52518/jeans-pants-blue-shop-52518.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2")';
-                    wornItem.style.backgroundSize = '45%';
-                    wornItem.style.backgroundPosition = '50% 75%';
-                    wornItem.style.zIndex = '4';
-                    wornItem.style.transform = 'translateY(100px) scale(0.5)';
+                    const longPantsGraphic = document.createElement('div');
+                    longPantsGraphic.className = 'long-pants-graphic';
+                    const pantsTop = document.createElement('div');
+                    pantsTop.className = 'long-pants-top';
+                    const pantsLeft = document.createElement('div');
+                    pantsLeft.className = 'long-pants-leg-left';
+                    const pantsRight = document.createElement('div');
+                    pantsRight.className = 'long-pants-leg-right';
+                    longPantsGraphic.appendChild(pantsTop);
+                    longPantsGraphic.appendChild(pantsLeft);
+                    longPantsGraphic.appendChild(pantsRight);
+                    clothingElem.appendChild(longPantsGraphic);
                     break;
                 case 'shorts':
-                    wornItem.style.backgroundImage = 'url("https://images.pexels.com/photos/6311154/pexels-photo-6311154.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2")';
-                    wornItem.style.backgroundSize = '40%';
-                    wornItem.style.backgroundPosition = '50% 65%';
-                    wornItem.style.zIndex = '4';
-                    wornItem.style.transform = 'translateY(80px) scale(0.4)';
+                    const shortsGraphic = document.createElement('div');
+                    shortsGraphic.className = 'shorts-graphic';
+                    const shortsTop = document.createElement('div');
+                    shortsTop.className = 'shorts-top';
+                    const shortsLeft = document.createElement('div');
+                    shortsLeft.className = 'shorts-leg-left';
+                    const shortsRight = document.createElement('div');
+                    shortsRight.className = 'shorts-leg-right';
+                    shortsGraphic.appendChild(shortsTop);
+                    shortsGraphic.appendChild(shortsLeft);
+                    shortsGraphic.appendChild(shortsRight);
+                    clothingElem.appendChild(shortsGraphic);
                     break;
                 case 'boots':
-                    wornItem.style.backgroundImage = 'url("https://images.pexels.com/photos/267242/pexels-photo-267242.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2")';
-                    wornItem.style.backgroundSize = '40%';
-                    wornItem.style.backgroundPosition = '50% 95%';
-                    wornItem.style.zIndex = '3';
-                    wornItem.style.transform = 'translateY(180px) scale(0.4)';
+                    const bootsGraphic = document.createElement('div');
+                    bootsGraphic.className = 'boots-graphic';
+                    
+                    const bootLeft = document.createElement('div');
+                    bootLeft.className = 'boots-left';
+                    const bootLeftTop = document.createElement('div');
+                    bootLeftTop.className = 'boot-top';
+                    const bootLeftBottom = document.createElement('div');
+                    bootLeftBottom.className = 'boot-bottom';
+                    bootLeft.appendChild(bootLeftTop);
+                    bootLeft.appendChild(bootLeftBottom);
+                    
+                    const bootRight = document.createElement('div');
+                    bootRight.className = 'boots-right';
+                    const bootRightTop = document.createElement('div');
+                    bootRightTop.className = 'boot-top';
+                    const bootRightBottom = document.createElement('div');
+                    bootRightBottom.className = 'boot-bottom';
+                    bootRight.appendChild(bootRightTop);
+                    bootRight.appendChild(bootRightBottom);
+                    
+                    bootsGraphic.appendChild(bootLeft);
+                    bootsGraphic.appendChild(bootRight);
+                    clothingElem.appendChild(bootsGraphic);
                     break;
                 case 'sandals':
-                    wornItem.style.backgroundImage = 'url("https://images.pexels.com/photos/2562992/pexels-photo-2562992.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2")';
-                    wornItem.style.backgroundSize = '40%';
-                    wornItem.style.backgroundPosition = '50% 95%';
-                    wornItem.style.zIndex = '3';
-                    wornItem.style.transform = 'translateY(180px) scale(0.4)';
+                    const sandalsGraphic = document.createElement('div');
+                    sandalsGraphic.className = 'sandals-graphic';
+                    
+                    const sandalLeft = document.createElement('div');
+                    sandalLeft.className = 'sandal-left';
+                    const strapLeft = document.createElement('div');
+                    strapLeft.className = 'sandal-strap';
+                    sandalLeft.appendChild(strapLeft);
+                    
+                    const sandalRight = document.createElement('div');
+                    sandalRight.className = 'sandal-right';
+                    const strapRight = document.createElement('div');
+                    strapRight.className = 'sandal-strap';
+                    sandalRight.appendChild(strapRight);
+                    
+                    sandalsGraphic.appendChild(sandalLeft);
+                    sandalsGraphic.appendChild(sandalRight);
+                    clothingElem.appendChild(sandalsGraphic);
                     break;
             }
+            
+            // Add to stick figure
+            stickFigure.appendChild(clothingElem);
         }
 
         checkOutfitButton.addEventListener('click', () => {
             // Check if outfit is complete (all categories selected)
-            const hasHeadwear = selectedClothing.some(item => item.category === 'headwear');
-            const hasTop = selectedClothing.some(item => item.category === 'top');
-            const hasBottom = selectedClothing.some(item => item.category === 'bottom');
-            const hasFootwear = selectedClothing.some(item => item.category === 'footwear');
+            const hasHeadwear = selectedClothing.headwear !== null;
+            const hasTop = selectedClothing.top !== null;
+            const hasBottom = selectedClothing.bottom !== null;
+            const hasFootwear = selectedClothing.footwear !== null;
             
             if (!hasHeadwear || !hasTop || !hasBottom || !hasFootwear) {
                 dressFeedback.className = 'dress-feedback bad';
@@ -3580,12 +4810,12 @@
             }
             
             // Count safe items
-            const safeItems = selectedClothing.filter(item => item.safe).length;
+            const safeItems = Object.values(selectedClothing).filter(item => item && item.safe).length;
             
             // Provide feedback based on safety score
             if (safeItems === 4) {
                 dressFeedback.className = 'dress-feedback good';
-                dressFeedback.textContent = 'Excellent choice! Your outfit provides maximum protection against ticks. The long sleeves, long pants, closed boots, and hat will help keep ticks away from your skin.';
+                dressFeedback.textContent = 'Excellent choice! Your outfit provides maximum protection against ticks. The long sleeves, long pants tucked into socks or boots, and hat will help keep ticks away from your skin.';
             } else if (safeItems === 3) {
                 dressFeedback.className = 'dress-feedback good';
                 dressFeedback.textContent = 'Good choice! Your outfit provides good protection, but could be improved. Look for any exposed skin areas that might be vulnerable to ticks.';
