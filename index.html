@@ -1373,6 +1373,7 @@
             font-weight: 300;
             position: relative;
             overflow: hidden;
+            color: var(--text-dark);
         }
 
         .quiz-option::before {
@@ -1982,7 +1983,7 @@
         .character-image {
             width: 100%;
             height: 400px;
-            background-image: url('https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
+            background-image: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 400"><circle cx="100" cy="80" r="40" fill="%23F5D0C5"/><line x1="100" y1="120" x2="100" y2="250" stroke="%23333" stroke-width="4"/><line x1="100" y1="170" x2="40" y2="120" stroke="%23333" stroke-width="4"/><line x1="100" y1="170" x2="160" y2="120" stroke="%23333" stroke-width="4"/><line x1="100" y1="250" x2="40" y2="350" stroke="%23333" stroke-width="4"/><line x1="100" y1="250" x2="160" y2="350" stroke="%23333" stroke-width="4"/></svg>');
             background-size: contain;
             background-position: center;
             background-repeat: no-repeat;
@@ -2339,7 +2340,7 @@
             <div class="celebrity-container">
                 <div class="celebrity-content">
                     <div class="celebrity-image">
-                        <img src="https://images.pexels.com/photos/2681751/pexels-photo-2681751.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Justin Bieber">
+                        <img src="https://images.pexels.com/photos/1468379/pexels-photo-1468379.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Justin Bieber">
                     </div>
                     <div class="celebrity-text">
                         <h3>DID YOU KNOW?</h3>
@@ -2410,7 +2411,7 @@
                             <p>CLOSED BOOTS</p>
                         </div>
                         <div class="clothing-item" data-item="sandals" data-safe="false">
-                            <img src="https://images.pexels.com/photos/6540999/pexels-photo-6540999.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Sandals">
+                            <img src="https://images.pexels.com/photos/2562992/pexels-photo-2562992.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Sandals">
                             <p>SANDALS</p>
                         </div>
                     </div>
@@ -2436,7 +2437,7 @@
     <section id="team" class="team-section">
         <div class="container">
             <div class="section-title-container">
-                <h2>MEET OUR TEAM</h2>
+                <h2>MEET OUR COFOUNDERS</h2>
             </div>
             <p class="section-intro">
                 Our dedicated team brings together expertise from healthcare education and patient advocacy to create comprehensive resources on Lyme disease awareness.
@@ -2694,7 +2695,7 @@
                 <li><a href="#game">GAMES</a></li>
                 <li><a href="#contact">CONTACT US</a></li>
             </ul>
-            <p class="copyright">© 2023 Beneath The Bite. All rights reserved.</p>
+            <p class="copyright">© 2025 Beneath The Bite. All rights reserved.</p>
         </div>
     </footer>
 
@@ -3511,48 +3512,56 @@
                     wornItem.style.backgroundSize = '60%';
                     wornItem.style.backgroundPosition = 'top center';
                     wornItem.style.zIndex = '10';
+                    wornItem.style.transform = 'translateY(-50px) scale(0.5)';
                     break;
                 case 'sunglasses':
                     wornItem.style.backgroundImage = 'url("https://images.pexels.com/photos/701877/pexels-photo-701877.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2")';
                     wornItem.style.backgroundSize = '30%';
                     wornItem.style.backgroundPosition = '50% 15%';
                     wornItem.style.zIndex = '9';
+                    wornItem.style.transform = 'translateY(-40px) scale(0.3)';
                     break;
                 case 'long-sleeve':
                     wornItem.style.backgroundImage = 'url("https://images.pexels.com/photos/6311387/pexels-photo-6311387.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2")';
                     wornItem.style.backgroundSize = '70%';
                     wornItem.style.backgroundPosition = '50% 30%';
                     wornItem.style.zIndex = '5';
+                    wornItem.style.transform = 'translateY(0) scale(0.7)';
                     break;
                 case 't-shirt':
                     wornItem.style.backgroundImage = 'url("https://images.pexels.com/photos/6347892/pexels-photo-6347892.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2")';
                     wornItem.style.backgroundSize = '70%';
                     wornItem.style.backgroundPosition = '50% 30%';
                     wornItem.style.zIndex = '5';
+                    wornItem.style.transform = 'translateY(0) scale(0.7)';
                     break;
                 case 'long-pants':
                     wornItem.style.backgroundImage = 'url("https://images.pexels.com/photos/52518/jeans-pants-blue-shop-52518.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2")';
                     wornItem.style.backgroundSize = '45%';
                     wornItem.style.backgroundPosition = '50% 75%';
                     wornItem.style.zIndex = '4';
+                    wornItem.style.transform = 'translateY(100px) scale(0.5)';
                     break;
                 case 'shorts':
                     wornItem.style.backgroundImage = 'url("https://images.pexels.com/photos/6311154/pexels-photo-6311154.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2")';
                     wornItem.style.backgroundSize = '40%';
                     wornItem.style.backgroundPosition = '50% 65%';
                     wornItem.style.zIndex = '4';
+                    wornItem.style.transform = 'translateY(80px) scale(0.4)';
                     break;
                 case 'boots':
                     wornItem.style.backgroundImage = 'url("https://images.pexels.com/photos/267242/pexels-photo-267242.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2")';
                     wornItem.style.backgroundSize = '40%';
                     wornItem.style.backgroundPosition = '50% 95%';
                     wornItem.style.zIndex = '3';
+                    wornItem.style.transform = 'translateY(180px) scale(0.4)';
                     break;
                 case 'sandals':
-                    wornItem.style.backgroundImage = 'url("https://images.pexels.com/photos/6540999/pexels-photo-6540999.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2")';
+                    wornItem.style.backgroundImage = 'url("https://images.pexels.com/photos/2562992/pexels-photo-2562992.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2")';
                     wornItem.style.backgroundSize = '40%';
                     wornItem.style.backgroundPosition = '50% 95%';
                     wornItem.style.zIndex = '3';
+                    wornItem.style.transform = 'translateY(180px) scale(0.4)';
                     break;
             }
         }
