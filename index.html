@@ -3826,7 +3826,7 @@
                     <a href="https://www.instagram.com/beneathbite" class="social-link" target="_blank">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
                     </a>
-                    <a href="https://www.x.com/beneathbite" class="social-link" target="_blank">
+                    <a href="https://www.x.com/beneaththebite" class="social-link" target="_blank">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>
                     </a>
                 </div>
@@ -4267,163 +4267,125 @@
         quizNextBtn.addEventListener('click', nextQuestion);
         quizRestartBtn.addEventListener('click', restartQuiz);
 
-        // Magnifying Glass Game
-        const magnifierGameBoard = document.getElementById('magnifier-game-board');
-        const magnifier = document.getElementById('magnifier');
-        const magnifierScoreDisplay = document.getElementById('magnifier-score');
-        const magnifierTimeDisplay = document.getElementById('magnifier-time');
-        const startMagnifierButton = document.getElementById('start-magnifier');
-        const resetMagnifierButton = document.getElementById('reset-magnifier');
-        const magnifierOverModal = document.getElementById('magnifier-over-modal');
-        const finalMagnifierScoreDisplay = document.getElementById('final-magnifier-score');
-        const closeMagnifierModalButton = document.getElementById('close-magnifier-modal');
+// Magnifying Glass Game (Stick Figure Edition)
+const magnifierGameBoard = document.getElementById('magnifier-game-board');
+const magnifier = document.getElementById('magnifier');
+const magnifierScoreDisplay = document.getElementById('magnifier-score');
+const magnifierTimeDisplay = document.getElementById('magnifier-time');
+const startMagnifierButton = document.getElementById('start-magnifier');
+const resetMagnifierButton = document.getElementById('reset-magnifier');
+const magnifierOverModal = document.getElementById('magnifier-over-modal');
+const finalMagnifierScoreDisplay = document.getElementById('final-magnifier-score');
+const closeMagnifierModalButton = document.getElementById('close-magnifier-modal');
 
-        let magnifierScore = 0;
-        let magnifierTimeLeft = 60;
-        let magnifierInterval;
-        let totalTicks = 5;
-        let hiddenTicks = [];
+let magnifierScore = 0;
+let magnifierTimeLeft = 60;
+let magnifierInterval;
+let totalTicks = 5;
+let hiddenTicks = [];
 
-        function setupMagnifier() {
-            // Setup magnifier movement
-            magnifierGameBoard.addEventListener('mousemove', (e) => {
-                if (magnifier.style.display === 'block') {
-                    const rect = magnifierGameBoard.getBoundingClientRect();
-                    const x = e.clientX - rect.left;
-                    const y = e.clientY - rect.top;
-                    
-                    // Position magnifier at cursor
-                    magnifier.style.left = `${x - 90}px`;
-                    magnifier.style.top = `${y - 90}px`;
-                    
-                    // Update magnified background with increased zoom
-                    const bgPosX = -x * 3 + 90;
-                    const bgPosY = -y * 3 + 90;
-                    magnifier.style.backgroundImage = `url('https://images.unsplash.com/photo-1542273917363-3b1817f69a2d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80')`;
-                    magnifier.style.backgroundSize = `${magnifierGameBoard.offsetWidth * 3}px ${magnifierGameBoard.offsetHeight * 3}px`;
-                    magnifier.style.backgroundPosition = `${bgPosX}px ${bgPosY}px`;
-                }
-            });
-            
-            // Show magnifier when mouse enters game board
-            magnifierGameBoard.addEventListener('mouseenter', () => {
-                if (magnifierTimeLeft > 0 && resetMagnifierButton.disabled === false) {
-                    magnifier.style.display = 'block';
-                }
-            });
-            
-            // Hide magnifier when mouse leaves game board
-            magnifierGameBoard.addEventListener('mouseleave', () => {
-                magnifier.style.display = 'none';
-            });
-        }
+function setupMagnifier() {
+  magnifierGameBoard.addEventListener('mousemove', (e) => {
+    if (magnifier.style.display === 'block') {
+      const rect = magnifierGameBoard.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      magnifier.style.left = `${x - 90}px`;
+      magnifier.style.top = `${y - 90}px`;
+      magnifier.style.backgroundPosition = `${-x * 2 + 90}px ${-y * 2 + 90}px`;
+    }
+  });
 
-        function createHiddenTicks() {
-            // Clear any existing ticks
-            hiddenTicks.forEach(tick => tick.remove());
-            hiddenTicks = [];
-            
-            // Create new hidden ticks at random positions
-            for (let i = 0; i < totalTicks; i++) {
-                const tick = document.createElement('div');
-                tick.className = 'hidden-tick';
-                
-                // Random position within the game board
-                const left = Math.random() * (magnifierGameBoard.offsetWidth - 25);
-                const top = Math.random() * (magnifierGameBoard.offsetHeight - 25);
-                
-                tick.style.left = `${left}px`;
-                tick.style.top = `${top}px`;
-                
-                // Add click handler
-                tick.addEventListener('click', () => {
-                    if (tick.classList.contains('found')) return;
-                    tick.classList.add('found');
-                    tick.style.opacity = '1';
-                    magnifierScore++;
-                    magnifierScoreDisplay.textContent = `Found: ${magnifierScore}/${totalTicks}`;
-                    
-                    if (magnifierScore === totalTicks) {
-                        endMagnifierGame(true);
-                    }
-                });
-                
-                magnifierGameBoard.appendChild(tick);
-                hiddenTicks.push(tick);
-            }
-        }
+  magnifierGameBoard.addEventListener('mouseenter', () => {
+    if (magnifierTimeLeft > 0 && !resetMagnifierButton.disabled) {
+      magnifier.style.display = 'block';
+    }
+  });
 
-        function startMagnifierGame() {
-            // Reset game state
-            magnifierScore = 0;
-            magnifierTimeLeft = 60;
-            
-            // Update display
-            magnifierScoreDisplay.textContent = `Found: ${magnifierScore}/${totalTicks}`;
-            magnifierTimeDisplay.textContent = `Time: ${magnifierTimeLeft}s`;
-            
-            // Create hidden ticks
-            createHiddenTicks();
-            
-            // Disable start button, enable reset button
-            startMagnifierButton.disabled = true;
-            resetMagnifierButton.disabled = false;
-            
-            // Start game timer
-            magnifierInterval = setInterval(() => {
-                magnifierTimeLeft--;
-                magnifierTimeDisplay.textContent = `Time: ${magnifierTimeLeft}s`;
-                
-                if (magnifierTimeLeft <= 0) {
-                    endMagnifierGame(false);
-                }
-            }, 1000);
-            
-            // Show magnifier when game starts
-            magnifier.style.display = 'block';
-        }
+  magnifierGameBoard.addEventListener('mouseleave', () => {
+    magnifier.style.display = 'none';
+  });
+}
 
-        function endMagnifierGame(completed) {
-            clearInterval(magnifierInterval);
-            
-            // Hide magnifier
-            magnifier.style.display = 'none';
-            
-            // Show game over modal
-            finalMagnifierScoreDisplay.textContent = `You found: ${magnifierScore}/${totalTicks} ticks`;
-            magnifierOverModal.style.display = 'flex';
-        }
+function createHiddenTicks() {
+  hiddenTicks.forEach(tick => tick.remove());
+  hiddenTicks = [];
+  const commonAreas = ['head', 'armpit', 'waist', 'ankle', 'behind-knee', 'dog-ear'];
 
-        function resetMagnifierGame() {
-            clearInterval(magnifierInterval);
-            
-            // Remove all ticks
-            hiddenTicks.forEach(tick => tick.remove());
-            hiddenTicks = [];
-            
-            // Reset game state
-            magnifierScore = 0;
-            magnifierTimeLeft = 60;
-            magnifierScoreDisplay.textContent = `Found: ${magnifierScore}/${totalTicks}`;
-            magnifierTimeDisplay.textContent = `Time: ${magnifierTimeLeft}s`;
-            
-            // Enable start button, disable reset button
-            startMagnifierButton.disabled = false;
-            resetMagnifierButton.disabled = true;
-            
-            // Hide magnifier
-            magnifier.style.display = 'none';
-        }
+  commonAreas.forEach(area => {
+    const tick = document.createElement('div');
+    tick.className = `hidden-tick ${area}`;
+    tick.style.left = `${getTickPosition(area).x}px`;
+    tick.style.top = `${getTickPosition(area).y}px`;
 
-        // Close magnifier game modal
-        closeMagnifierModalButton.addEventListener('click', () => {
-            magnifierOverModal.style.display = 'none';
-            resetMagnifierGame();
-        });
+    tick.addEventListener('click', () => {
+      if (tick.classList.contains('found')) return;
+      tick.classList.add('found');
+      magnifierScore++;
+      magnifierScoreDisplay.textContent = `Found: ${magnifierScore}/${totalTicks}`;
+      if (magnifierScore === totalTicks) endMagnifierGame(true);
+    });
 
-        startMagnifierButton.addEventListener('click', startMagnifierGame);
-        resetMagnifierButton.addEventListener('click', resetMagnifierGame);
+    magnifierGameBoard.appendChild(tick);
+    hiddenTicks.push(tick);
+  });
+}
 
+function getTickPosition(area) {
+  const positions = {
+    head: { x: 150, y: 30 },
+    armpit: { x: 140, y: 100 },
+    waist: { x: 150, y: 160 },
+    ankle: { x: 150, y: 220 },
+    'behind-knee': { x: 160, y: 200 },
+    'dog-ear': { x: 300, y: 60 }
+  };
+  return positions[area];
+}
+
+function startMagnifierGame() {
+  magnifierScore = 0;
+  magnifierTimeLeft = 60;
+  magnifierScoreDisplay.textContent = `Found: ${magnifierScore}/${totalTicks}`;
+  magnifierTimeDisplay.textContent = `Time: ${magnifierTimeLeft}s`;
+  createHiddenTicks();
+  startMagnifierButton.disabled = true;
+  resetMagnifierButton.disabled = false;
+  magnifierInterval = setInterval(() => {
+    magnifierTimeLeft--;
+    magnifierTimeDisplay.textContent = `Time: ${magnifierTimeLeft}s`;
+    if (magnifierTimeLeft <= 0) endMagnifierGame(false);
+  }, 1000);
+  magnifier.style.display = 'block';
+}
+
+function endMagnifierGame(completed) {
+  clearInterval(magnifierInterval);
+  magnifier.style.display = 'none';
+  finalMagnifierScoreDisplay.textContent = `You found: ${magnifierScore}/${totalTicks} ticks`;
+  magnifierOverModal.style.display = 'flex';
+}
+
+function resetMagnifierGame() {
+  clearInterval(magnifierInterval);
+  hiddenTicks.forEach(tick => tick.remove());
+  hiddenTicks = [];
+  magnifierScore = 0;
+  magnifierTimeLeft = 60;
+  magnifierScoreDisplay.textContent = `Found: ${magnifierScore}/${totalTicks}`;
+  magnifierTimeDisplay.textContent = `Time: ${magnifierTimeLeft}s`;
+  startMagnifierButton.disabled = false;
+  resetMagnifierButton.disabled = true;
+  magnifier.style.display = 'none';
+}
+
+closeMagnifierModalButton.addEventListener('click', () => {
+  magnifierOverModal.style.display = 'none';
+  resetMagnifierGame();
+});
+
+startMagnifierButton.addEventListener('click', startMagnifierGame);
+resetMagnifierButton.addEventListener('click', resetMagnifierGame);
 
         // Initialize magnifier game
         setupMagnifier();
