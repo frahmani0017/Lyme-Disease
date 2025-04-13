@@ -3733,7 +3733,6 @@
                 <button class="game-tab active" data-game="tick-game">TICK FINDER GAME</button>
                 <button class="game-tab" data-game="quiz-game">LYME DISEASE QUIZ</button>
                 <button class="game-tab" data-game="magnifier-game">MAGNIFYING GLASS</button>
-                <button class="game-tab" data-game="difference-game">SPOT THE DIFFERENCE</button>
             </div>
             
             <div id="tick-game" class="game-content active">
@@ -3811,45 +3810,6 @@
                     </div>
                 </div>
             </div>
-            
-            <div id="difference-game" class="game-content">
-                <div class="game-container">
-                    <h3 class="game-title">SPOT THE DIFFERENCES: TICK EDITION</h3>
-                    <div class="game-instructions">
-                        <h4>HOW TO PLAY:</h4>
-                        <p>Study both images carefully and click on the differences you find. There are 5 differences to spot!</p>
-                    </div>
-                    <div class="difference-tracker" id="difference-tracker">
-                        <div class="difference-dot"></div>
-                        <div class="difference-dot"></div>
-                        <div class="difference-dot"></div>
-                        <div class="difference-dot"></div>
-                        <div class="difference-dot"></div>
-                    </div>
-                    <div class="difference-game-container">
-                        <div class="difference-images">
-                            <div class="difference-image-container">
-                                <img src="https://images.pexels.com/photos/6647037/pexels-photo-6647037.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Tick habitat image 1" class="difference-image" id="difference-image-1">
-                                <!-- Spots will be added here by JavaScript -->
-                            </div>
-                            <div class="difference-image-container">
-                                <img src="https://images.pexels.com/photos/6647037/pexels-photo-6647037.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Tick habitat image 2" class="difference-image" id="difference-image-2">
-                                <!-- Spots will be added here by JavaScript -->
-                            </div>
-                        </div>
-                        <div class="game-stats">
-                            <div id="difference-score">Found: 0/5</div>
-                            <div id="difference-time">Time: 120s</div>
-                        </div>
-                        <div class="game-controls">
-                            <button id="start-difference" class="game-btn">START GAME</button>
-                            <button id="reset-difference" class="game-btn" disabled>RESET GAME</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
 
     <section id="contact" class="contact-section">
         <div class="container">
@@ -3866,7 +3826,7 @@
                     <a href="https://www.instagram.com/beneathbite" class="social-link" target="_blank">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
                     </a>
-                    <a href="#" class="social-link">
+                    <a href="https://www.x.com/beneathbite" class="social-link" target="_blank">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>
                     </a>
                 </div>
@@ -4464,173 +4424,9 @@
         startMagnifierButton.addEventListener('click', startMagnifierGame);
         resetMagnifierButton.addEventListener('click', resetMagnifierGame);
 
+
         // Initialize magnifier game
         setupMagnifier();
-
-        // Spot the Difference Game
-        const differenceImage1 = document.getElementById('difference-image-1');
-        const differenceImage2 = document.getElementById('difference-image-2');
-        const differenceScoreDisplay = document.getElementById('difference-score');
-        const differenceTimeDisplay = document.getElementById('difference-time');
-        const startDifferenceButton = document.getElementById('start-difference');
-        const resetDifferenceButton = document.getElementById('reset-difference');
-        const differenceOverModal = document.getElementById('difference-over-modal');
-        const finalDifferenceScoreDisplay = document.getElementById('final-difference-score');
-        const closeDifferenceModalButton = document.getElementById('close-difference-modal');
-        const differenceDots = document.querySelectorAll('#difference-tracker .difference-dot');
-
-        let differenceScore = 0;
-        let differenceTimeLeft = 120;
-        let differenceInterval;
-        let totalDifferences = 5;
-        let foundDifferences = [];
-        
-        // Define differences (coordinates as percentages of image size)
-        const differences = [
-            { x1: 15, y1: 25, x2: 15, y2: 25 },  // Difference 1
-            { x1: 45, y1: 60, x2: 45, y2: 60 },  // Difference 2
-            { x1: 75, y1: 40, x2: 75, y2: 40 },  // Difference 3
-            { x1: 30, y1: 80, x2: 30, y2: 80 },  // Difference 4
-            { x1: 60, y1: 20, x2: 60, y2: 20 }   // Difference 5
-        ];
-
-        function setupDifferenceGame() {
-            // Create differences in second image
-            // In a real implementation, you would use actual different images
-            // For demonstration, we'll just add spots that will be revealed when clicked
-            
-            // Add click handlers to both images
-            differenceImage1.addEventListener('click', (e) => checkDifference(e, 1));
-            differenceImage2.addEventListener('click', (e) => checkDifference(e, 2));
-        }
-
-        function checkDifference(e, imageNum) {
-            if (differenceTimeLeft <= 0 || startDifferenceButton.disabled === false) return;
-            
-            const rect = e.target.getBoundingClientRect();
-            const x = ((e.clientX - rect.left) / rect.width) * 100;
-            const y = ((e.clientY - rect.top) / rect.height) * 100;
-            
-            // Check if click is near any of the differences
-            differences.forEach((diff, index) => {
-                const diffX = imageNum === 1 ? diff.x1 : diff.x2;
-                const diffY = imageNum === 1 ? diff.y1 : diff.y2;
-                
-                // Calculate distance between click and difference center
-                const distance = Math.sqrt(Math.pow(x - diffX, 2) + Math.pow(y - diffY, 2));
-                
-                // If click is close enough to a difference point and not already found
-                if (distance < 10 && !foundDifferences.includes(index)) {
-                    foundDifferences.push(index);
-                    
-                    // Create spots on both images
-                    createDifferenceSpot(differenceImage1.parentNode, diff.x1, diff.y1);
-                    createDifferenceSpot(differenceImage2.parentNode, diff.x2, diff.y2);
-                    
-                    // Update score
-                    differenceScore++;
-                    differenceScoreDisplay.textContent = `Found: ${differenceScore}/${totalDifferences}`;
-                    
-                    // Update tracker dots
-                    differenceDots[index].classList.add('found');
-                    
-                    // Check if all differences found
-                    if (differenceScore === totalDifferences) {
-                        endDifferenceGame(true);
-                    }
-                }
-            });
-        }
-
-        function createDifferenceSpot(container, x, y) {
-            const spot = document.createElement('div');
-            spot.className = 'difference-spot found';
-            spot.style.left = `${x}%`;
-            spot.style.top = `${y}%`;
-            container.appendChild(spot);
-        }
-
-        function startDifferenceGame() {
-            // Reset game state
-            differenceScore = 0;
-            differenceTimeLeft = 120;
-            foundDifferences = [];
-            
-            // Update display
-            differenceScoreDisplay.textContent = `Found: ${differenceScore}/${totalDifferences}`;
-            differenceTimeDisplay.textContent = `Time: ${differenceTimeLeft}s`;
-            
-            // Reset tracker dots
-            differenceDots.forEach(dot => dot.classList.remove('found'));
-            
-            // Remove any existing spots
-            document.querySelectorAll('.difference-spot').forEach(spot => spot.remove());
-            
-            // Disable start button, enable reset button
-            startDifferenceButton.disabled = true;
-            resetDifferenceButton.disabled = false;
-            
-            // Start game timer
-            differenceInterval = setInterval(() => {
-                differenceTimeLeft--;
-                differenceTimeDisplay.textContent = `Time: ${differenceTimeLeft}s`;
-                
-                if (differenceTimeLeft <= 0) {
-                    endDifferenceGame(false);
-                }
-            }, 1000);
-        }
-
-        function endDifferenceGame(completed) {
-            clearInterval(differenceInterval);
-            
-            // Show game over modal
-            finalDifferenceScoreDisplay.textContent = `You found: ${differenceScore}/${totalDifferences} differences`;
-            differenceOverModal.style.display = 'flex';
-            
-            // If not completed, reveal all unfound differences
-            if (!completed) {
-                differences.forEach((diff, index) => {
-                    if (!foundDifferences.includes(index)) {
-                        createDifferenceSpot(differenceImage1.parentNode, diff.x1, diff.y1);
-                        createDifferenceSpot(differenceImage2.parentNode, diff.x2, diff.y2);
-                    }
-                });
-            }
-        }
-
-        function resetDifferenceGame() {
-            clearInterval(differenceInterval);
-            
-            // Remove all spots
-            document.querySelectorAll('.difference-spot').forEach(spot => spot.remove());
-            
-            // Reset game state
-            differenceScore = 0;
-            differenceTimeLeft = 120;
-            foundDifferences = [];
-            differenceScoreDisplay.textContent = `Found: ${differenceScore}/${totalDifferences}`;
-            differenceTimeDisplay.textContent = `Time: ${differenceTimeLeft}s`;
-            
-            // Reset tracker dots
-            differenceDots.forEach(dot => dot.classList.remove('found'));
-            
-            // Enable start button, disable reset button
-            startDifferenceButton.disabled = false;
-            resetDifferenceButton.disabled = true;
-        }
-
-        // Close difference game modal
-        closeDifferenceModalButton.addEventListener('click', () => {
-            differenceOverModal.style.display = 'none';
-            resetDifferenceGame();
-        });
-
-        startDifferenceButton.addEventListener('click', startDifferenceGame);
-        resetDifferenceButton.addEventListener('click', resetDifferenceGame);
-
-        // Initialize difference game
-        setupDifferenceGame();
 
         // Dress Protectively Game
         const clothingItems = document.querySelectorAll('.clothing-item');
