@@ -152,63 +152,44 @@
             transform: translateY(-3px);
         }
 
-        */
-
-.main-nav {
-  list-style: none;
-  display: flex;
-  justify-content: center;
-  gap: 2rem;
-  padding: 0;
-  margin: 0;
-  background-color: var(--primary);
-}
-
-.main-nav > li {
-  position: relative;
-}
-
-.main-nav > li > a {
-  color: white;
-  text-decoration: none;
-  padding: 1rem 1.5rem;
-  display: block;
-  font-weight: 500;
-  text-transform: uppercase;
-}
-
-.main-nav li:hover > a {
-  background-color: var(--primary-dark);
-}
-
-.dropdown {
-  display: none;
-  position: absolute;
-  top: 100%;
-  left: 0;
-  background-color: var(--primary-light);
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  min-width: 200px;
-  box-shadow: 0 8px 16px rgba(0,0,0,0.1);
-  z-index: 10;
-}
-
-.dropdown li a {
-  padding: 1rem;
-  color: white;
-  display: block;
-  text-decoration: none;
-}
-
-.dropdown li a:hover {
-  background-color: var(--primary-dark);
-}
-
-.main-nav li:hover .dropdown {
-  display: block;
-}
+*/
+        
+<nav class="navbar">
+  <ul class="main-nav">
+    <li>
+      <a href="#">Lyme Disease 101</a>
+      <ul class="dropdown">
+        <li><a href="#">What is Lyme Disease?</a></li>
+        <li><a href="#">Symptoms</a></li>
+        <li><a href="#">Inside the Body</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#">Prevention & Protection</a>
+      <ul class="dropdown">
+        <li><a href="#">Prevention Tips</a></li>
+        <li><a href="#">Tick-Safe Gear</a></li>
+        <li><a href="#">How to Spot a Tick Bite</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#">Learning & Awareness</a>
+      <ul class="dropdown">
+        <li><a href="#">Play & Learn</a></li>
+        <li><a href="#">Famous Cases</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#">Our Team & Support</a>
+      <ul class="dropdown">
+        <li><a href="#">Our Mission</a></li>
+        <li><a href="#">Meet the Team</a></li>
+        <li><a href="#">Contact Us</a></li>
+        <li><a href="#">Support Our Work</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
 
         .hero {
             background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1628963935781-e9a3c3a8d599?ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80');
@@ -4718,6 +4699,74 @@
                 dressFeedback.className = 'dress-feedback bad';
                 dressFeedback.textContent = 'This outfit leaves you highly vulnerable to tick bites. For tick-prone areas, choose light-colored, long-sleeved shirts, long pants tucked into socks or boots, and closed-toe shoes.';
             }
+
+.navbar {
+  background-color: #2b4747;
+  padding: 0;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  font-family: 'Poppins', sans-serif;
+}
+
+.main-nav {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  gap: 2rem;
+}
+
+.main-nav > li {
+  position: relative;
+}
+
+.main-nav > li > a {
+  display: block;
+  padding: 1rem 1.5rem;
+  color: #ffffff;
+  font-weight: 600;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.main-nav > li > a:hover {
+  background-color: #3c6e71;
+  color: #ffeecc;
+  border-radius: 8px;
+}
+
+/* Dropdown */
+.dropdown {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #4b7b7b;
+  min-width: 220px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+  border-radius: 0 0 8px 8px;
+  overflow: hidden;
+  z-index: 999;
+  transition: opacity 0.3s ease;
+}
+
+.dropdown li a {
+  display: block;
+  padding: 0.75rem 1.25rem;
+  color: white;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: background 0.3s ease;
+}
+
+.dropdown li a:hover {
+  background-color: #355f5f;
+}
+
+.main-nav li:hover .dropdown {
+  display: block;
+}
         });
     </script>
 
