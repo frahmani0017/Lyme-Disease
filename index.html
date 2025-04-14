@@ -1645,14 +1645,13 @@
             animation: fadeIn 0.5s ease-out;
         }
 
-        /* Magnifier Game Styles */
-        .magnifier-game {
+        /* Hot Spots Game Styles */
+        .hotspot-game {
             position: relative;
             width: 100%;
             height: 450px;
             border-radius: 15px;
             overflow: hidden;
-            cursor: none;
             background-image: url('https://images.unsplash.com/photo-1542273917363-3b1817f69a2d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80');
             background-size: cover;
             background-position: center;
@@ -1662,107 +1661,93 @@
             transition: transform 0.3s;
         }
 
-        .magnifier-game:hover {
+        .hotspot-game:hover {
             transform: scale(1.01);
         }
 
-        .magnifier {
-            position: absolute;
-            width: 180px;
-            height: 180px;
-            border-radius: 50%;
-            border: 4px solid var(--primary);
-            background-repeat: no-repeat;
-            pointer-events: none;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
-            display: none;
-            z-index: 10;
-        }
-
-        .hidden-tick {
-            position: absolute;
-            width: 25px;
-            height: 25px;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23795548'%3E%3Ccircle cx='12' cy='12' r='8'/%3E%3Ccircle cx='12' cy='12' r='3' fill='%23A1887F'/%3E%3Cpath d='M12,2 L14,6 M12,2 L10,6 M12,2 L16,4 M12,2 L8,4' stroke='%23795548' stroke-width='1.5'/%3E%3C/svg%3E");
-            background-size: contain;
-            opacity: 0.6;
-            cursor: pointer;
-            z-index: 5;
-            transition: transform 0.3s, opacity 0.3s;
-        }
-
-        .hidden-tick.found {
-            transform: scale(1.5);
-            opacity: 1;
-            animation: pulse 1s infinite;
-        }
-
-        /* Spot the Difference Game Styles */
-        .difference-game-container {
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
-        }
-
-        .difference-images {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 2rem;
-            justify-content: center;
-        }
-
-        .difference-image-container {
-            position: relative;
-            width: 48%;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
-            transition: transform 0.3s;
-        }
-
-        .difference-image-container:hover {
-            transform: scale(1.02);
-        }
-
-        .difference-image {
-            width: 100%;
-            height: 350px;
-            object-fit: cover;
-            border-radius: 15px;
-            cursor: pointer;
-            transition: transform 0.4s ease;
-        }
-
-        .difference-image:hover {
-            transform: scale(1.04);
-        }
-
-        .difference-spot {
+        .hotspot {
             position: absolute;
             width: 40px;
             height: 40px;
             border-radius: 50%;
             background-color: rgba(217, 89, 76, 0.6);
-            border: 3px solid var(--accent);
+            cursor: pointer;
+            z-index: 5;
             transform: translate(-50%, -50%);
-            pointer-events: none;
-            display: none;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            opacity: 0;
+        }
+
+        .hotspot:hover {
+            transform: translate(-50%, -50%) scale(1.2);
+            background-color: rgba(217, 89, 76, 0.8);
+        }
+
+        .hotspot.visible {
+            opacity: 1;
             animation: pulse 1.5s infinite;
         }
 
-        .difference-spot.found {
-            display: block;
+        .hotspot.found {
+            background-color: rgba(60, 110, 113, 0.8);
+            animation: none;
         }
 
-        .difference-tracker {
+        .dog {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            bottom: 30px;
+            right: 50px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath fill='%23795548' d='M256,224c-79.41,0-192,122.76-192,200.25,0,34.9,26.81,55.75,71.74,55.75,48.84,0,81.45-25.08,120.26-25.08,39.59,0,72.11,25.08,120.26,25.08,44.93,0,71.74-20.85,71.74-55.75C448,346.76,335.41,224,256,224Z'/%3E%3Cpath fill='%23795548' d='M256,224c-79.41,0-192,122.76-192,200.25,0,34.9,26.81,55.75,71.74,55.75,48.84,0,81.45-25.08,120.26-25.08,39.59,0,72.11,25.08,120.26,25.08,44.93,0,71.74-20.85,71.74-55.75C448,346.76,335.41,224,256,224Z'/%3E%3Ccircle fill='%23000000' cx='160' cy='384' r='16'/%3E%3Ccircle fill='%23000000' cx='352' cy='384' r='16'/%3E%3Cpath fill='%23795548' d='M256,336c-17.67,0-32-14.33-32-32V224c0-17.67,14.33-32,32-32s32,14.33,32,32v80C288,321.67,273.67,336,256,336Z'/%3E%3Cpath fill='%23795548' d='M352,320c-17.67,0-32-14.33-32-32V224c0-17.67,14.33-32,32-32s32,14.33,32,32v64C384,305.67,369.67,320,352,320Z'/%3E%3Cpath fill='%23795548' d='M160,320c-17.67,0-32-14.33-32-32V224c0-17.67,14.33-32,32-32s32,14.33,32,32v64C192,305.67,177.67,320,160,320Z'/%3E%3Cpath fill='%23A1887F' d='M240,416h32c0,17.67-14.33,32-32,32h0C240,430.33,240,416,240,416Z'/%3E%3C/svg%3E");
+            background-size: contain;
+            background-repeat: no-repeat;
+            z-index: 10;
+            animation: dogWag 3s infinite alternate ease-in-out;
+        }
+
+        @keyframes dogWag {
+            0% {
+                transform: rotate(-5deg);
+            }
+            100% {
+                transform: rotate(5deg);
+            }
+        }
+
+        .hotspot-info {
+            position: absolute;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            padding: 15px;
+            max-width: 250px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            z-index: 15;
+            display: none;
+            font-size: 0.9rem;
+            transform: translateY(10px);
+            animation: fadeIn 0.3s forwards;
+        }
+
+        .hotspot-info h4 {
+            color: var(--primary-dark);
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+
+        .hotspot-info p {
+            color: var(--text-dark);
+            margin-bottom: 0;
+        }
+
+        .hotspot-tracker {
             display: flex;
             justify-content: center;
             gap: 1rem;
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
         }
 
-        .difference-dot {
+        .hotspot-dot {
             width: 20px;
             height: 20px;
             border-radius: 50%;
@@ -1771,7 +1756,7 @@
             box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
         }
 
-        .difference-dot.found {
+        .hotspot-dot.found {
             background-color: var(--primary);
             transform: scale(1.2);
             box-shadow: 0 5px 12px rgba(0, 0, 0, 0.2);
@@ -1884,6 +1869,33 @@
             margin-bottom: 1.5rem;
             line-height: 1.8;
             font-size: 1.1rem;
+        }
+
+        .speech-bubble {
+            position: relative;
+            background-color: var(--accent-light);
+            color: var(--white);
+            padding: 15px 20px;
+            border-radius: 15px;
+            margin-top: 20px;
+            margin-bottom: 40px;
+            max-width: 80%;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+            font-weight: 500;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .speech-bubble:after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -10px;
+            border-width: 10px;
+            border-style: solid;
+            border-color: var(--accent-light) transparent transparent transparent;
         }
 
         /* Dress Protectively Game */
@@ -3414,7 +3426,7 @@
                 <div class="info-item">
                     <div class="info-icon">🦠</div>
                     <h3>BACTERIAL INFECTION</h3>
-                    <p>Caused by the bacterium Borrelia burgdorferi, transmitted through tick bites. These <span class="highlight">spiral-shaped bacteria</span> can penetrate tissues and evade the immune system, making early detection crucial for effective treatment.</p>
+                    <p>Caused by the bacterium <i>Borrelia burgdorferi</i>, transmitted through tick bites. These <span class="highlight">spiral-shaped bacteria</span> can penetrate tissues and evade the immune system, making early detection crucial for effective treatment.</p>
                 </div>
                 <div class="info-item">
                     <div class="info-icon">🌍</div>
@@ -3470,7 +3482,7 @@
                 <h2>INSIDE THE BODY</h2>
             </div>
             <p class="section-intro">
-                Lyme disease is more than just its visible symptoms. The Borrelia bacteria cause complex changes at the cellular and tissue levels throughout the body.
+                Lyme disease is more than just its visible symptoms. The <i>Borrelia</i> bacteria cause complex changes at the cellular and tissue levels throughout the body.
             </p>
             
             <div class="fun-fact-box" style="text-align: center;">
@@ -3490,7 +3502,7 @@
                 </div>
                 <div class="cellular-content">
                     <h2>CELLULAR INVASION & IMMUNE RESPONSE</h2>
-                    <p>When Borrelia burgdorferi enters the body through a tick bite, it begins an epic journey through your body:</p>
+                    <p>When <i>Borrelia burgdorferi</i> enters the body through a tick bite, it begins an epic journey through your body:</p>
                     <ul class="cellular-list">
                         <li><strong class="glow">Skin Invasion:</strong> After a tick bite, the bacteria start multiplying in your skin, causing that famous bull's-eye rash. It's like they're throwing a bacteria party right under your skin!</li>
                         <li><strong class="glow">Bloodstream Adventure:</strong> These corkscrew-shaped bacteria can drill through your blood vessels and travel through your bloodstream like they're on a water slide, spreading to different parts of your body.</li>
@@ -3757,6 +3769,9 @@
                         <p>Like many Lyme disease patients, Bieber faced challenges with diagnosis and treatment. His openness about his condition has helped reduce stigma and encouraged others to seek proper medical attention for similar symptoms.</p>
                     </div>
                 </div>
+                <div class="speech-bubble">
+                    "Guess they wanted a piece of that Yummy"
+                </div>
                 <p>Other celebrities who have battled Lyme disease include <span class="highlight">Avril Lavigne</span>, <span class="highlight">Bella Hadid</span>, <span class="highlight">Shania Twain</span>, and <span class="highlight">Alec Baldwin</span>. Their stories highlight how this disease can affect anyone, regardless of their lifestyle or resources.</p>
             </div>
         </div>
@@ -3767,13 +3782,13 @@
             <div class="section-title-container">
                 <h2>PLAY & LEARN</h2>
             </div>
-            <p class="section-intro">
+            <p class="section-intro" style="color: var(--white);">
                 Learning about Lyme disease can be fun and engaging. Try our interactive games to test your knowledge and improve your awareness about ticks and Lyme disease prevention.
             </p>
             <div class="game-tabs">
                 <button class="game-tab active" data-game="tick-game">TICK FINDER GAME</button>
                 <button class="game-tab" data-game="quiz-game">LYME DISEASE QUIZ</button>
-                <button class="game-tab" data-game="magnifier-game">MAGNIFYING GLASS</button>
+                <button class="game-tab" data-game="hotspot-game">HOT SPOTS</button>
             </div>
             
             <div id="tick-game" class="game-content active">
@@ -3830,24 +3845,31 @@
                 </div>
             </div>
             
-            <div id="magnifier-game" class="game-content">
+            <div id="hotspot-game" class="game-content">
                 <div class="game-container">
-                    <h3 class="game-title">TICK HUNT: USE THE MAGNIFYING GLASS</h3>
+                    <h3 class="game-title">HOT SPOTS: FIND THE TICK HIDING SPOTS</h3>
                     <div class="game-instructions">
                         <h4>HOW TO PLAY:</h4>
-                        <p>Move your cursor over the image to use the magnifying glass. Find and click on the hidden ticks. They're tiny and well-camouflaged!</p>
+                        <p>Click on areas in the image where ticks might hide or attach. Look for common spots like tall grass, leaf litter, pet fur, and human skin folds. Find all the hot spots to win!</p>
                     </div>
-                    <div class="magnifier-game" id="magnifier-game-board">
-                        <div class="magnifier" id="magnifier"></div>
-                        <!-- Hidden ticks will be inserted here by JavaScript -->
+                    <div class="hotspot-tracker" id="hotspot-tracker">
+                        <div class="hotspot-dot"></div>
+                        <div class="hotspot-dot"></div>
+                        <div class="hotspot-dot"></div>
+                        <div class="hotspot-dot"></div>
+                        <div class="hotspot-dot"></div>
+                    </div>
+                    <div class="hotspot-game" id="hotspot-game-board">
+                        <div class="dog"></div>
+                        <!-- Hotspots will be added by JavaScript -->
                     </div>
                     <div class="game-stats">
-                        <div id="magnifier-score">Found: 0/5</div>
-                        <div id="magnifier-time">Time: 60s</div>
+                        <div id="hotspot-score">Found: 0/5</div>
+                        <div id="hotspot-time">Time: 60s</div>
                     </div>
                     <div class="game-controls">
-                        <button id="start-magnifier" class="game-btn">START GAME</button>
-                        <button id="reset-magnifier" class="game-btn" disabled>RESET GAME</button>
+                        <button id="start-hotspot" class="game-btn">START GAME</button>
+                        <button id="reset-hotspot" class="game-btn" disabled>RESET GAME</button>
                     </div>
                 </div>
             </div>
@@ -3922,19 +3944,11 @@
         </div>
     </div>
 
-    <div class="modal" id="magnifier-over-modal">
+    <div class="modal" id="hotspot-over-modal">
         <div class="modal-content">
             <h3>GAME OVER!</h3>
-            <p id="final-magnifier-score">You found: 0/5 ticks</p>
-            <button id="close-magnifier-modal" class="game-btn">CLOSE</button>
-        </div>
-    </div>
-
-    <div class="modal" id="difference-over-modal">
-        <div class="modal-content">
-            <h3>GAME COMPLETE!</h3>
-            <p id="final-difference-score">You found: 0/5 differences</p>
-            <button id="close-difference-modal" class="game-btn">CLOSE</button>
+            <p id="final-hotspot-score">You found: 0/5 hot spots</p>
+            <button id="close-hotspot-modal" class="game-btn">CLOSE</button>
         </div>
     </div>
 
@@ -4328,166 +4342,227 @@
         quizNextBtn.addEventListener('click', nextQuestion);
         quizRestartBtn.addEventListener('click', restartQuiz);
 
-        // Magnifying Glass Game
-        const magnifierGameBoard = document.getElementById('magnifier-game-board');
-        const magnifier = document.getElementById('magnifier');
-        const magnifierScoreDisplay = document.getElementById('magnifier-score');
-        const magnifierTimeDisplay = document.getElementById('magnifier-time');
-        const startMagnifierButton = document.getElementById('start-magnifier');
-        const resetMagnifierButton = document.getElementById('reset-magnifier');
-        const magnifierOverModal = document.getElementById('magnifier-over-modal');
-        const finalMagnifierScoreDisplay = document.getElementById('final-magnifier-score');
-        const closeMagnifierModalButton = document.getElementById('close-magnifier-modal');
+        // Hot Spots Game
+        const hotspotGameBoard = document.getElementById('hotspot-game-board');
+        const hotspotScoreDisplay = document.getElementById('hotspot-score');
+        const hotspotTimeDisplay = document.getElementById('hotspot-time');
+        const startHotspotButton = document.getElementById('start-hotspot');
+        const resetHotspotButton = document.getElementById('reset-hotspot');
+        const hotspotOverModal = document.getElementById('hotspot-over-modal');
+        const finalHotspotScoreDisplay = document.getElementById('final-hotspot-score');
+        const closeHotspotModalButton = document.getElementById('close-hotspot-modal');
+        const hotspotTracker = document.getElementById('hotspot-tracker');
 
-        let magnifierScore = 0;
-        let magnifierTimeLeft = 60;
-        let magnifierInterval;
-        let totalTicks = 5;
-        let hiddenTicks = [];
+        let hotspotScore = 0;
+        let hotspotTimeLeft = 60;
+        let hotspotInterval;
+        let totalHotspots = 5;
+        let activeHotspots = [];
+        let hotspotInfoVisible = null;
 
-        function setupMagnifier() {
-            // Setup magnifier movement
-            magnifierGameBoard.addEventListener('mousemove', (e) => {
-                if (magnifier.style.display === 'block') {
-                    const rect = magnifierGameBoard.getBoundingClientRect();
-                    const x = e.clientX - rect.left;
-                    const y = e.clientY - rect.top;
-                    
-                    // Position magnifier at cursor
-                    magnifier.style.left = `${x - 90}px`;
-                    magnifier.style.top = `${y - 90}px`;
-                    
-                    // Update magnified background with increased zoom
-                    const bgPosX = -x * 3 + 90;
-                    const bgPosY = -y * 3 + 90;
-                    magnifier.style.backgroundImage = `url('https://images.unsplash.com/photo-1542273917363-3b1817f69a2d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80')`;
-                    magnifier.style.backgroundSize = `${magnifierGameBoard.offsetWidth * 3}px ${magnifierGameBoard.offsetHeight * 3}px`;
-                    magnifier.style.backgroundPosition = `${bgPosX}px ${bgPosY}px`;
-                }
-            });
-            
-            // Show magnifier when mouse enters game board
-            magnifierGameBoard.addEventListener('mouseenter', () => {
-                if (magnifierTimeLeft > 0 && resetMagnifierButton.disabled === false) {
-                    magnifier.style.display = 'block';
-                }
-            });
-            
-            // Hide magnifier when mouse leaves game board
-            magnifierGameBoard.addEventListener('mouseleave', () => {
-                magnifier.style.display = 'none';
-            });
-        }
+        // Define hotspot positions and info
+        const hotspotData = [
+            {
+                top: '25%',
+                left: '15%',
+                info: 'Tall grass is a common hiding spot for ticks. They climb up and wait for hosts to brush by.'
+            },
+            {
+                top: '70%',
+                left: '30%',
+                info: 'Leaf litter provides the perfect humid environment for ticks to survive and thrive.'
+            },
+            {
+                top: '40%',
+                left: '50%',
+                info: 'Ticks often hide in the underbrush and low vegetation along trails and paths.'
+            },
+            {
+                top: '65%',
+                left: '75%',
+                info: 'Dogs can pick up ticks in their fur, especially around the ears, neck, and paws. Always check your pets after walks!'
+            },
+            {
+                top: '20%',
+                left: '80%',
+                info: 'Ticks prefer warm, moist areas of the human body like armpits, groin, and hair.'
+            }
+        ];
 
-        function createHiddenTicks() {
-            // Clear any existing ticks
-            hiddenTicks.forEach(tick => tick.remove());
-            hiddenTicks = [];
+        function createHotspots() {
+            // Clear any existing hotspots
+            activeHotspots.forEach(hotspot => {
+                if (hotspot.infoElement) hotspot.infoElement.remove();
+                hotspot.element.remove();
+            });
+            activeHotspots = [];
             
-            // Create new hidden ticks at random positions
-            for (let i = 0; i < totalTicks; i++) {
-                const tick = document.createElement('div');
-                tick.className = 'hidden-tick';
+            // Reset tracker dots
+            const trackerDots = hotspotTracker.querySelectorAll('.hotspot-dot');
+            trackerDots.forEach(dot => dot.classList.remove('found'));
+            
+            // Create new hotspots
+            hotspotData.forEach((data, index) => {
+                const hotspot = document.createElement('div');
+                hotspot.className = 'hotspot';
+                hotspot.style.top = data.top;
+                hotspot.style.left = data.left;
                 
-                // Random position within the game board
-                const left = Math.random() * (magnifierGameBoard.offsetWidth - 25);
-                const top = Math.random() * (magnifierGameBoard.offsetHeight - 25);
-                
-                tick.style.left = `${left}px`;
-                tick.style.top = `${top}px`;
+                // Create info element but don't add to DOM yet
+                const infoElement = document.createElement('div');
+                infoElement.className = 'hotspot-info';
+                infoElement.innerHTML = `<h4>Tick Hotspot!</h4><p>${data.info}</p>`;
                 
                 // Add click handler
-                tick.addEventListener('click', () => {
-                    if (tick.classList.contains('found')) return;
-                    tick.classList.add('found');
-                    tick.style.opacity = '1';
-                    magnifierScore++;
-                    magnifierScoreDisplay.textContent = `Found: ${magnifierScore}/${totalTicks}`;
+                hotspot.addEventListener('click', () => {
+                    if (hotspot.classList.contains('found')) return;
                     
-                    if (magnifierScore === totalTicks) {
-                        endMagnifierGame(true);
+                    // Hide any visible info
+                    if (hotspotInfoVisible) {
+                        hotspotInfoVisible.style.display = 'none';
                     }
+                    
+                    // Show this hotspot's info
+                    infoElement.style.display = 'block';
+                    hotspotInfoVisible = infoElement;
+                    
+                    // Position info element near hotspot
+                    const hotspotRect = hotspot.getBoundingClientRect();
+                    const boardRect = hotspotGameBoard.getBoundingClientRect();
+                    
+                    const left = parseFloat(hotspot.style.left);
+                    const top = parseFloat(hotspot.style.top);
+                    
+                    // Adjust position based on where in the board the hotspot is
+                    if (left > 50) {
+                        infoElement.style.left = `calc(${hotspot.style.left} - 250px)`;
+                    } else {
+                        infoElement.style.left = `calc(${hotspot.style.left} + 40px)`;
+                    }
+                    
+                    if (top > 50) {
+                        infoElement.style.top = `calc(${hotspot.style.top} - 100px)`;
+                    } else {
+                        infoElement.style.top = `calc(${hotspot.style.top} + 40px)`;
+                    }
+                    
+                    // Mark as found
+                    hotspot.classList.add('found');
+                    trackerDots[index].classList.add('found');
+                    
+                    // Update score
+                    hotspotScore++;
+                    hotspotScoreDisplay.textContent = `Found: ${hotspotScore}/${totalHotspots}`;
+                    
+                    // Check if all found
+                    if (hotspotScore === totalHotspots) {
+                        endHotspotGame(true);
+                    }
+                    
+                    // Auto-hide info after 5 seconds
+                    setTimeout(() => {
+                        if (hotspotInfoVisible === infoElement) {
+                            infoElement.style.display = 'none';
+                            hotspotInfoVisible = null;
+                        }
+                    }, 5000);
                 });
                 
-                magnifierGameBoard.appendChild(tick);
-                hiddenTicks.push(tick);
-            }
+                hotspotGameBoard.appendChild(hotspot);
+                hotspotGameBoard.appendChild(infoElement);
+                
+                activeHotspots.push({
+                    element: hotspot,
+                    infoElement: infoElement
+                });
+            });
         }
 
-        function startMagnifierGame() {
+        function startHotspotGame() {
             // Reset game state
-            magnifierScore = 0;
-            magnifierTimeLeft = 60;
+            hotspotScore = 0;
+            hotspotTimeLeft = 60;
             
             // Update display
-            magnifierScoreDisplay.textContent = `Found: ${magnifierScore}/${totalTicks}`;
-            magnifierTimeDisplay.textContent = `Time: ${magnifierTimeLeft}s`;
+            hotspotScoreDisplay.textContent = `Found: ${hotspotScore}/${totalHotspots}`;
+            hotspotTimeDisplay.textContent = `Time: ${hotspotTimeLeft}s`;
             
-            // Create hidden ticks
-            createHiddenTicks();
+            // Create hotspots
+            createHotspots();
+            
+            // Make hotspots visible
+            activeHotspots.forEach(hotspot => {
+                hotspot.element.classList.add('visible');
+            });
             
             // Disable start button, enable reset button
-            startMagnifierButton.disabled = true;
-            resetMagnifierButton.disabled = false;
+            startHotspotButton.disabled = true;
+            resetHotspotButton.disabled = false;
             
             // Start game timer
-            magnifierInterval = setInterval(() => {
-                magnifierTimeLeft--;
-                magnifierTimeDisplay.textContent = `Time: ${magnifierTimeLeft}s`;
+            hotspotInterval = setInterval(() => {
+                hotspotTimeLeft--;
+                hotspotTimeDisplay.textContent = `Time: ${hotspotTimeLeft}s`;
                 
-                if (magnifierTimeLeft <= 0) {
-                    endMagnifierGame(false);
+                if (hotspotTimeLeft <= 0) {
+                    endHotspotGame(false);
                 }
             }, 1000);
-            
-            // Show magnifier when game starts
-            magnifier.style.display = 'block';
         }
 
-        function endMagnifierGame(completed) {
-            clearInterval(magnifierInterval);
+        function endHotspotGame(completed) {
+            clearInterval(hotspotInterval);
             
-            // Hide magnifier
-            magnifier.style.display = 'none';
+            // Hide any visible info
+            if (hotspotInfoVisible) {
+                hotspotInfoVisible.style.display = 'none';
+                hotspotInfoVisible = null;
+            }
             
             // Show game over modal
-            finalMagnifierScoreDisplay.textContent = `You found: ${magnifierScore}/${totalTicks} ticks`;
-            magnifierOverModal.style.display = 'flex';
+            finalHotspotScoreDisplay.textContent = `You found: ${hotspotScore}/${totalHotspots} hot spots`;
+            hotspotOverModal.style.display = 'flex';
         }
 
-        function resetMagnifierGame() {
-            clearInterval(magnifierInterval);
+        function resetHotspotGame() {
+            clearInterval(hotspotInterval);
             
-            // Remove all ticks
-            hiddenTicks.forEach(tick => tick.remove());
-            hiddenTicks = [];
+            // Remove all hotspots
+            activeHotspots.forEach(hotspot => {
+                if (hotspot.infoElement) hotspot.infoElement.remove();
+                hotspot.element.remove();
+            });
+            activeHotspots = [];
+            
+            // Hide any visible info
+            if (hotspotInfoVisible) {
+                hotspotInfoVisible.style.display = 'none';
+                hotspotInfoVisible = null;
+            }
+            
+            // Reset tracker dots
+            const trackerDots = hotspotTracker.querySelectorAll('.hotspot-dot');
+            trackerDots.forEach(dot => dot.classList.remove('found'));
             
             // Reset game state
-            magnifierScore = 0;
-            magnifierTimeLeft = 60;
-            magnifierScoreDisplay.textContent = `Found: ${magnifierScore}/${totalTicks}`;
-            magnifierTimeDisplay.textContent = `Time: ${magnifierTimeLeft}s`;
+            hotspotScore = 0;
+            hotspotTimeLeft = 60;
+            hotspotScoreDisplay.textContent = `Found: ${hotspotScore}/${totalHotspots}`;
+            hotspotTimeDisplay.textContent = `Time: ${hotspotTimeLeft}s`;
             
             // Enable start button, disable reset button
-            startMagnifierButton.disabled = false;
-            resetMagnifierButton.disabled = true;
-            
-            // Hide magnifier
-            magnifier.style.display = 'none';
+            startHotspotButton.disabled = false;
+            resetHotspotButton.disabled = true;
         }
 
-        // Close magnifier game modal
-        closeMagnifierModalButton.addEventListener('click', () => {
-            magnifierOverModal.style.display = 'none';
-            resetMagnifierGame();
+        // Close hotspot game modal
+        closeHotspotModalButton.addEventListener('click', () => {
+            hotspotOverModal.style.display = 'none';
+            resetHotspotGame();
         });
 
-        startMagnifierButton.addEventListener('click', startMagnifierGame);
-        resetMagnifierButton.addEventListener('click', resetMagnifierGame);
-
-
-        // Initialize magnifier game
-        setupMagnifier();
+        startHotspotButton.addEventListener('click', startHotspotGame);
+        resetHotspotButton.addEventListener('click', resetHotspotGame);
 
         // Dress Protectively Game
         const clothingItems = document.querySelectorAll('.clothing-item');
