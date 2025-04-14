@@ -25,6 +25,17 @@
             --grass-dark: #388E3C;
             --sun: #FFC107;
             --sky: #B3E5FC;
+            --heart-color: #E53935;
+            --brain-color: #F48FB1;
+            --nerve-color: #7986CB;
+            --biofilm-color: #8BC34A;
+            --bacteria-color: #9C27B0;
+            --immune-color: #4CAF50;
+            --flagella-color: #FF9800;
+            --p66-color: #00BCD4;
+            --antibody-color: #FFC107;
+            --rna-color: #FF5722;
+            --enzyme-color: #8D6E63;
         }
 
         * {
@@ -2735,7 +2746,7 @@
             position: absolute;
             width: 40px;
             height: 15px;
-            background-color: #9C27B0;
+            background-color: var(--bacteria-color);
             border-radius: 20px;
             animation: moveBacteria 10s infinite linear;
         }
@@ -2766,7 +2777,7 @@
             position: absolute;
             width: 30px;
             height: 30px;
-            background-color: #4CAF50;
+            background-color: var(--immune-color);
             border-radius: 50%;
             animation: chaseImmuneCell 15s infinite linear;
         }
@@ -2797,7 +2808,7 @@
             position: absolute;
             width: 40px;
             height: 60px;
-            background-color: #E53935;
+            background-color: var(--heart-color);
             border-radius: 40px 40px 0 0;
         }
         
@@ -2817,7 +2828,7 @@
             width: 100px;
             height: 80px;
             position: relative;
-            background-color: #F48FB1;
+            background-color: var(--brain-color);
             border-radius: 50px 50px 0 0;
             margin: 15px;
         }
@@ -2826,7 +2837,7 @@
         .brain-graphic::after {
             content: "";
             position: absolute;
-            background-color: #F48FB1;
+            background-color: var(--brain-color);
         }
         
         .brain-graphic::before {
@@ -2858,7 +2869,7 @@
             position: absolute;
             width: 40px;
             height: 40px;
-            background-color: #7986CB;
+            background-color: var(--nerve-color);
             border-radius: 50%;
             top: 20px;
             left: 40px;
@@ -2868,7 +2879,7 @@
             position: absolute;
             width: 80px;
             height: 6px;
-            background-color: #7986CB;
+            background-color: var(--nerve-color);
             top: 37px;
             left: 0;
         }
@@ -2881,7 +2892,7 @@
             position: absolute;
             width: 4px;
             height: 20px;
-            background-color: #7986CB;
+            background-color: var(--nerve-color);
         }
         
         .dendrite:nth-child(1) {
@@ -2925,6 +2936,515 @@
             left: 50px;
             transform: rotate(225deg);
         }
+
+        /* Protein graphics */
+        .protein-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin: 30px 0;
+            gap: 15px;
+        }
+
+        .protein-graphic {
+            width: 100px;
+            height: 100px;
+            position: relative;
+            margin: 15px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .protein-graphic:hover {
+            transform: scale(1.1);
+        }
+
+        .protein-name {
+            font-size: 0.9rem;
+            color: var(--text-dark);
+            margin-top: 10px;
+            font-weight: 500;
+        }
+
+        .protein-osp {
+            position: relative;
+            width: 80px;
+            height: 80px;
+        }
+
+        .protein-osp-body {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            background-color: #8D6E63;
+            border-radius: 50%;
+            top: 10px;
+            left: 10px;
+        }
+
+        .protein-osp-spike {
+            position: absolute;
+            width: 10px;
+            height: 20px;
+            background-color: #A1887F;
+            border-radius: 5px;
+        }
+
+        .protein-osp-spike:nth-child(1) {
+            top: 0;
+            left: 35px;
+            transform: rotate(0deg);
+        }
+
+        .protein-osp-spike:nth-child(2) {
+            top: 10px;
+            left: 65px;
+            transform: rotate(45deg);
+        }
+
+        .protein-osp-spike:nth-child(3) {
+            top: 35px;
+            left: 70px;
+            transform: rotate(90deg);
+        }
+
+        .protein-osp-spike:nth-child(4) {
+            top: 60px;
+            left: 65px;
+            transform: rotate(135deg);
+        }
+
+        .protein-osp-spike:nth-child(5) {
+            top: 70px;
+            left: 35px;
+            transform: rotate(180deg);
+        }
+
+        .protein-osp-spike:nth-child(6) {
+            top: 60px;
+            left: 5px;
+            transform: rotate(225deg);
+        }
+
+        .protein-osp-spike:nth-child(7) {
+            top: 35px;
+            left: 0;
+            transform: rotate(270deg);
+        }
+
+        .protein-osp-spike:nth-child(8) {
+            top: 10px;
+            left: 5px;
+            transform: rotate(315deg);
+        }
+
+        .protein-vlse {
+            position: relative;
+            width: 80px;
+            height: 80px;
+        }
+
+        .protein-vlse-body {
+            position: absolute;
+            width: 50px;
+            height: 70px;
+            background-color: #5E35B1;
+            border-radius: 25px;
+            top: 5px;
+            left: 15px;
+        }
+
+        .protein-vlse-segment {
+            position: absolute;
+            width: 50px;
+            height: 10px;
+            background-color: #7E57C2;
+            left: 15px;
+        }
+
+        .protein-vlse-segment:nth-child(1) {
+            top: 15px;
+        }
+
+        .protein-vlse-segment:nth-child(2) {
+            top: 35px;
+        }
+
+        .protein-vlse-segment:nth-child(3) {
+            top: 55px;
+        }
+
+        .protein-bbk32 {
+            position: relative;
+            width: 80px;
+            height: 80px;
+        }
+
+        .protein-bbk32-body {
+            position: absolute;
+            width: 40px;
+            height: 60px;
+            background-color: #00897B;
+            border-radius: 5px;
+            top: 10px;
+            left: 20px;
+        }
+
+        .protein-bbk32-domain {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: #26A69A;
+            border-radius: 3px;
+        }
+
+        .protein-bbk32-domain:nth-child(1) {
+            top: 15px;
+            left: 30px;
+        }
+
+        .protein-bbk32-domain:nth-child(2) {
+            top: 40px;
+            left: 30px;
+        }
+
+        .protein-bbk32-binding {
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background-color: #B2DFDB;
+            border-radius: 50%;
+            top: 20px;
+            left: 55px;
+        }
+
+        .protein-dbpa {
+            position: relative;
+            width: 80px;
+            height: 80px;
+        }
+
+        .protein-dbpa-body {
+            position: absolute;
+            width: 45px;
+            height: 65px;
+            background-color: #FFA000;
+            border-radius: 10px;
+            top: 7px;
+            left: 17px;
+        }
+
+        .protein-dbpa-helix {
+            position: absolute;
+            width: 6px;
+            height: 45px;
+            background-color: #FFC107;
+            border-radius: 3px;
+            transform: rotate(15deg);
+        }
+
+        .protein-dbpa-helix:nth-child(1) {
+            top: 15px;
+            left: 25px;
+        }
+
+        .protein-dbpa-helix:nth-child(2) {
+            top: 15px;
+            left: 40px;
+            transform: rotate(-15deg);
+        }
+
+        .protein-dbpa-binding {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background-color: #FFECB3;
+            border-radius: 50%;
+            top: 65px;
+            left: 33px;
+        }
+
+        .protein-crasp {
+            position: relative;
+            width: 80px;
+            height: 80px;
+        }
+
+        .protein-crasp-body {
+            position: absolute;
+            width: 55px;
+            height: 55px;
+            background-color: #D32F2F;
+            border-radius: 10px;
+            top: 12px;
+            left: 12px;
+        }
+
+        .protein-crasp-domain {
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background-color: #EF5350;
+            border-radius: 3px;
+        }
+
+        .protein-crasp-domain:nth-child(1) {
+            top: 20px;
+            left: 20px;
+        }
+
+        .protein-crasp-domain:nth-child(2) {
+            top: 20px;
+            left: 45px;
+        }
+
+        .protein-crasp-domain:nth-child(3) {
+            top: 45px;
+            left: 20px;
+        }
+
+        .protein-crasp-domain:nth-child(4) {
+            top: 45px;
+            left: 45px;
+        }
+        
+        /* New protein graphics */
+        .protein-flagellin {
+            position: relative;
+            width: 80px;
+            height: 80px;
+        }
+        
+        .protein-flagellin-body {
+            position: absolute;
+            width: 10px;
+            height: 70px;
+            background-color: var(--flagella-color);
+            top: 5px;
+            left: 35px;
+            border-radius: 5px;
+        }
+        
+        .protein-flagellin-segment {
+            position: absolute;
+            width: 25px;
+            height: 8px;
+            background-color: #FFB74D;
+            border-radius: 4px;
+        }
+        
+        .protein-flagellin-segment:nth-child(1) {
+            top: 10px;
+            left: 22px;
+            transform: rotate(30deg);
+        }
+        
+        .protein-flagellin-segment:nth-child(2) {
+            top: 20px;
+            left: 22px;
+            transform: rotate(-30deg);
+        }
+        
+        .protein-flagellin-segment:nth-child(3) {
+            top: 30px;
+            left: 22px;
+            transform: rotate(30deg);
+        }
+        
+        .protein-flagellin-segment:nth-child(4) {
+            top: 40px;
+            left: 22px;
+            transform: rotate(-30deg);
+        }
+        
+        .protein-flagellin-segment:nth-child(5) {
+            top: 50px;
+            left: 22px;
+            transform: rotate(30deg);
+        }
+        
+        .protein-flagellin-segment:nth-child(6) {
+            top: 60px;
+            left: 22px;
+            transform: rotate(-30deg);
+        }
+        
+        .protein-p66 {
+            position: relative;
+            width: 80px;
+            height: 80px;
+        }
+        
+        .protein-p66-body {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background-color: var(--p66-color);
+            border-radius: 8px;
+            top: 15px;
+            left: 15px;
+            transform: rotate(45deg);
+        }
+        
+        .protein-p66-channel {
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            background-color: #E0F7FA;
+            border-radius: 50%;
+            top: 27px;
+            left: 27px;
+        }
+        
+        .protein-p66-subunit {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background-color: #4DD0E1;
+            border-radius: 50%;
+        }
+        
+        .protein-p66-subunit:nth-child(1) {
+            top: 10px;
+            left: 34px;
+        }
+        
+        .protein-p66-subunit:nth-child(2) {
+            top: 34px;
+            left: 10px;
+        }
+        
+        .protein-p66-subunit:nth-child(3) {
+            top: 58px;
+            left: 34px;
+        }
+        
+        .protein-p66-subunit:nth-child(4) {
+            top: 34px;
+            left: 58px;
+        }
+        
+        .protein-antibody {
+            position: relative;
+            width: 80px;
+            height: 80px;
+        }
+        
+        .protein-antibody-body {
+            position: absolute;
+            width: 20px;
+            height: 30px;
+            background-color: var(--antibody-color);
+            top: 25px;
+            left: 30px;
+        }
+        
+        .protein-antibody-arm {
+            position: absolute;
+            width: 25px;
+            height: 10px;
+            background-color: #FFD54F;
+            border-radius: 5px;
+        }
+        
+        .protein-antibody-arm:nth-child(1) {
+            top: 15px;
+            left: 15px;
+            transform: rotate(-30deg);
+        }
+        
+        .protein-antibody-arm:nth-child(2) {
+            top: 15px;
+            left: 40px;
+            transform: rotate(30deg);
+        }
+        
+        .protein-antibody-arm:nth-child(3) {
+            top: 55px;
+            left: 15px;
+            transform: rotate(30deg);
+        }
+        
+        .protein-antibody-arm:nth-child(4) {
+            top: 55px;
+            left: 40px;
+            transform: rotate(-30deg);
+        }
+        
+        .protein-rna {
+            position: relative;
+            width: 80px;
+            height: 80px;
+        }
+        
+        .protein-rna-body {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            top: 10px;
+            left: 10px;
+            border: 4px solid var(--rna-color);
+            border-radius: 50%;
+        }
+        
+        .protein-rna-segment {
+            position: absolute;
+            background-color: #FF8A65;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+        }
+        
+        /* Create a spiral pattern with 12 segments */
+        .protein-rna-segment:nth-child(1) { top: 15px; left: 40px; }
+        .protein-rna-segment:nth-child(2) { top: 20px; left: 50px; }
+        .protein-rna-segment:nth-child(3) { top: 30px; left: 55px; }
+        .protein-rna-segment:nth-child(4) { top: 40px; left: 50px; }
+        .protein-rna-segment:nth-child(5) { top: 45px; left: 40px; }
+        .protein-rna-segment:nth-child(6) { top: 40px; left: 30px; }
+        .protein-rna-segment:nth-child(7) { top: 30px; left: 25px; }
+        .protein-rna-segment:nth-child(8) { top: 20px; left: 30px; }
+        .protein-rna-segment:nth-child(9) { top: 25px; left: 40px; }
+        .protein-rna-segment:nth-child(10) { top: 30px; left: 45px; }
+        .protein-rna-segment:nth-child(11) { top: 35px; left: 40px; }
+        .protein-rna-segment:nth-child(12) { top: 30px; left: 35px; }
+        
+        .protein-enzyme {
+            position: relative;
+            width: 80px;
+            height: 80px;
+        }
+        
+        .protein-enzyme-body {
+            position: absolute;
+            width: 45px;
+            height: 60px;
+            background-color: var(--enzyme-color);
+            border-radius: 22px;
+            top: 10px;
+            left: 17px;
+        }
+        
+        .protein-enzyme-active {
+            position: absolute;
+            width: 20px;
+            height: 15px;
+            background-color: #A1887F;
+            border-radius: 10px 10px 0 0;
+            top: 20px;
+            left: 30px;
+        }
+        
+        .protein-enzyme-substrate {
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background-color: #D7CCC8;
+            border-radius: 4px;
+            top: 40px;
+            left: 32px;
+            transform: rotate(45deg);
+        }
         
         /* Text effects */
         .highlight {
@@ -2946,15 +3466,55 @@
             animation: shake 0.5s infinite;
         }
         
+        .zoom {
+            display: inline-block;
+            animation: zoom 2s infinite alternate;
+        }
+        
+        .heart-text {
+            color: var(--heart-color);
+            font-weight: bold;
+        }
+        
+        .brain-text {
+            color: var(--brain-color);
+            font-weight: bold;
+        }
+        
+        .nerve-text {
+            color: var(--nerve-color);
+            font-weight: bold;
+        }
+        
+        .bacteria-text {
+            color: var(--bacteria-color);
+            font-weight: bold;
+        }
+        
+        .biofilm-text {
+            color: var(--biofilm-color);
+            font-weight: bold;
+        }
+        
+        .immune-text {
+            color: var(--immune-color);
+            font-weight: bold;
+        }
+        
+        .flagella-text {
+            color: var(--flagella-color);
+            font-weight: bold;
+        }
+        
+        .p66-text {
+            color: var(--p66-color);
+            font-weight: bold;
+        }
+        
         @keyframes shake {
             0%, 100% { transform: translateX(0); }
             25% { transform: translateX(-5px); }
             75% { transform: translateX(5px); }
-        }
-        
-        .zoom {
-            display: inline-block;
-            animation: zoom 2s infinite alternate;
         }
         
         @keyframes zoom {
@@ -3206,6 +3766,10 @@
                 transform: translateX(-50%);
             }
 
+            .protein-container {
+                justify-content: center;
+            }
+
             section {
                 padding: 4rem 0;
             }
@@ -3276,15 +3840,15 @@
                 </div>
                 <button class="mobile-menu-btn" id="mobile-menu-toggle">☰</button>
                 <ul class="nav-links">
+                    <li><a href="#initiative">OUR MISSION</a></li>
                     <li><a href="#about">LYME 101</a></li>
                     <li><a href="#symptoms">SYMPTOMS</a></li>
                     <li><a href="#cellular">INSIDE THE BODY</a></li>
                     <li><a href="#prevention">PREVENTION</a></li>
                     <li><a href="#dress-game">TICK-SAFE GEAR</a></li>
                     <li><a href="#celebrity">FAMOUS CASES</a></li>
-                    <li><a href="#initiative">OUR MISSION</a></li>
-                    <li><a href="#team">MEET THE TEAM</a></li>
                     <li><a href="#game">PLAY & LEARN</a></li>
+                    <li><a href="#team">MEET THE TEAM</a></li>
                     <li><a href="#contact">CONTACT</a></li>
                 </ul>
             </nav>
@@ -3297,6 +3861,23 @@
                 <h1>UNDERSTANDING LYME DISEASE</h1>
                 <p>Join our mission to raise awareness about Lyme disease, its symptoms, prevention, and how it affects the body at a <span class="highlight">cellular level</span>. Early detection can make all the difference.</p>
                 <a href="#about" class="btn">LEARN ABOUT LYME DISEASE</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="initiative" class="initiative-section">
+        <div class="container">
+            <div class="initiative-grid">
+                <div class="initiative-image">
+                    <img src="images/mission.png.png" alt="Team working on Lyme disease awareness">
+                </div>
+                <div class="initiative-content">
+                    <h2>OUR MISSION</h2>
+                    <p>Beneath The Bite was founded with a clear mission: to provide <span class="highlight">accurate information</span> about Lyme disease and increase public awareness through education and interactive learning.</p>
+                    <p>Our team of healthcare professionals, researchers, and patient advocates works tirelessly to develop resources that help people understand the risks, recognize symptoms, and take preventive measures against Lyme disease.</p>
+                    <p>Through community outreach, educational programs, and innovative digital tools, we aim to reduce the incidence of Lyme disease and improve outcomes for those affected by it.</p>
+                    <a href="#contact" class="btn">JOIN OUR CAUSE</a>
+                </div>
             </div>
         </div>
     </section>
@@ -3374,8 +3955,8 @@
             </p>
             
             <div class="fun-fact-box" style="text-align: center;">
-                <h3>COOL FACT: BACTERIAL NINJAS! </h3>
-                <p>Did you know that Lyme bacteria are shaped like <span class="highlight">corkscrews</span>? This spiral shape helps them drill through your tissues like tiny ninja warriors! They can swim through your body fluids and even hide from your immune system by changing their outer "clothes" (surface proteins).</p>
+                <h3>COOL FACT: BACTERIAL NINJAS!</h3>
+                <p>Did you know that Lyme bacteria are shaped like <span class="highlight">corkscrews</span>? This spiral shape helps them drill through your tissues like tiny ninja warriors! They can swim through your body fluids and even hide from your <span class="immune-text">immune system</span> by changing their outer "clothes" (surface proteins).</p>
             </div>
             
             <div class="cell-animation">
@@ -3395,9 +3976,9 @@
                         <li><strong class="glow">Skin Invasion:</strong> After a tick bite, the bacteria start multiplying in your skin, causing that famous bull's-eye rash. It's like they're throwing a bacteria party right under your skin!</li>
                         <li><strong class="glow">Bloodstream Adventure:</strong> These corkscrew-shaped bacteria can drill through your blood vessels and travel through your bloodstream like they're on a water slide, spreading to different parts of your body.</li>
                         <li><strong class="glow">Master of Disguise:</strong> The bacteria are like chameleons! They can change their appearance to trick your immune system, making it harder for your body to find and destroy them.</li>
-                        <li><strong class="glow">Tissue Takeover:</strong> These sneaky bacteria can invade your joints, heart, and even your brain, causing inflammation and damage.</li>
+                        <li><strong class="glow">Tissue Takeover:</strong> These sneaky bacteria can invade your <span class="heart-text">heart</span>, <span class="brain-text">brain</span>, and joints, causing inflammation and damage.</li>
                     </ul>
-                    <p>Your body tries to fight back by sending immune cells (like tiny soldiers) to battle the infection, but sometimes the bacteria are just too tricky!</p>
+                    <p>Your body tries to fight back by sending <span class="immune-text">immune cells</span> (like tiny soldiers) to battle the infection, but sometimes the bacteria are just too tricky!</p>
                 </div>
             </div>
             
@@ -3419,9 +4000,132 @@
                 </div>
             </div>
             
+            <div class="protein-container">
+                <div class="protein-graphic">
+                    <div class="protein-osp">
+                        <div class="protein-osp-body"></div>
+                        <div class="protein-osp-spike"></div>
+                        <div class="protein-osp-spike"></div>
+                        <div class="protein-osp-spike"></div>
+                        <div class="protein-osp-spike"></div>
+                        <div class="protein-osp-spike"></div>
+                        <div class="protein-osp-spike"></div>
+                        <div class="protein-osp-spike"></div>
+                        <div class="protein-osp-spike"></div>
+                    </div>
+                    <div class="protein-name">OspC Protein</div>
+                </div>
+                
+                <div class="protein-graphic">
+                    <div class="protein-vlse">
+                        <div class="protein-vlse-body"></div>
+                        <div class="protein-vlse-segment"></div>
+                        <div class="protein-vlse-segment"></div>
+                        <div class="protein-vlse-segment"></div>
+                    </div>
+                    <div class="protein-name">VlsE Protein</div>
+                </div>
+                
+                <div class="protein-graphic">
+                    <div class="protein-bbk32">
+                        <div class="protein-bbk32-body"></div>
+                        <div class="protein-bbk32-domain"></div>
+                        <div class="protein-bbk32-domain"></div>
+                        <div class="protein-bbk32-binding"></div>
+                    </div>
+                    <div class="protein-name">BBK32 Protein</div>
+                </div>
+                
+                <div class="protein-graphic">
+                    <div class="protein-dbpa">
+                        <div class="protein-dbpa-body"></div>
+                        <div class="protein-dbpa-helix"></div>
+                        <div class="protein-dbpa-helix"></div>
+                        <div class="protein-dbpa-binding"></div>
+                    </div>
+                    <div class="protein-name">DbpA Protein</div>
+                </div>
+                
+                <div class="protein-graphic">
+                    <div class="protein-crasp">
+                        <div class="protein-crasp-body"></div>
+                        <div class="protein-crasp-domain"></div>
+                        <div class="protein-crasp-domain"></div>
+                        <div class="protein-crasp-domain"></div>
+                        <div class="protein-crasp-domain"></div>
+                    </div>
+                    <div class="protein-name">CRASPs Protein</div>
+                </div>
+                
+                <!-- New protein graphics -->
+                <div class="protein-graphic">
+                    <div class="protein-flagellin">
+                        <div class="protein-flagellin-body"></div>
+                        <div class="protein-flagellin-segment"></div>
+                        <div class="protein-flagellin-segment"></div>
+                        <div class="protein-flagellin-segment"></div>
+                        <div class="protein-flagellin-segment"></div>
+                        <div class="protein-flagellin-segment"></div>
+                        <div class="protein-flagellin-segment"></div>
+                    </div>
+                    <div class="protein-name">Flagellin</div>
+                </div>
+                
+                <div class="protein-graphic">
+                    <div class="protein-p66">
+                        <div class="protein-p66-body"></div>
+                        <div class="protein-p66-channel"></div>
+                        <div class="protein-p66-subunit"></div>
+                        <div class="protein-p66-subunit"></div>
+                        <div class="protein-p66-subunit"></div>
+                        <div class="protein-p66-subunit"></div>
+                    </div>
+                    <div class="protein-name">P66 Porin</div>
+                </div>
+                
+                <div class="protein-graphic">
+                    <div class="protein-antibody">
+                        <div class="protein-antibody-body"></div>
+                        <div class="protein-antibody-arm"></div>
+                        <div class="protein-antibody-arm"></div>
+                        <div class="protein-antibody-arm"></div>
+                        <div class="protein-antibody-arm"></div>
+                    </div>
+                    <div class="protein-name">Antibody</div>
+                </div>
+                
+                <div class="protein-graphic">
+                    <div class="protein-rna">
+                        <div class="protein-rna-body"></div>
+                        <div class="protein-rna-segment"></div>
+                        <div class="protein-rna-segment"></div>
+                        <div class="protein-rna-segment"></div>
+                        <div class="protein-rna-segment"></div>
+                        <div class="protein-rna-segment"></div>
+                        <div class="protein-rna-segment"></div>
+                        <div class="protein-rna-segment"></div>
+                        <div class="protein-rna-segment"></div>
+                        <div class="protein-rna-segment"></div>
+                        <div class="protein-rna-segment"></div>
+                        <div class="protein-rna-segment"></div>
+                        <div class="protein-rna-segment"></div>
+                    </div>
+                    <div class="protein-name">Bacterial RNA</div>
+                </div>
+                
+                <div class="protein-graphic">
+                    <div class="protein-enzyme">
+                        <div class="protein-enzyme-body"></div>
+                        <div class="protein-enzyme-active"></div>
+                        <div class="protein-enzyme-substrate"></div>
+                    </div>
+                    <div class="protein-name">Enzyme</div>
+                </div>
+            </div>
+            
             <div class="fun-fact-box" style="margin-top: 3rem; text-align: center;">
-                <h3>GROSS BUT COOL: BACTERIAL BIOFILMS! 🧫</h3>
-                <p>Lyme bacteria can create slimy protective shields called "<span class="highlight">biofilms</span>" where they hide together. Think of it like a bacteria fort made of slime that protects them from antibiotics and your immune system. This is one reason why Lyme disease can be hard to treat!</p>
+                <h3>GROSS BUT COOL: BACTERIAL BIOFILMS!</h3>
+                <p>Lyme bacteria can create slimy protective shields called "<span class="biofilm-text">biofilms</span>" where they hide together. Think of it like a bacteria fort made of slime that protects them from antibiotics and your immune system. This is one reason why Lyme disease can be hard to treat!</p>
             </div>
             
             <div class="cellular-grid" style="margin-top: 4rem;">
@@ -3430,15 +4134,20 @@
                     <p>As the infection continues, the bacteria can affect different parts of your body:</p>
                     <ul class="cellular-list">
                         <li><strong class="glow">Joints:</strong> The bacteria can make your joints swell up and hurt, like having a tiny bacterial dance party in your knees or elbows. Ouch!</li>
-                        <li><strong class="glow">Brain and Nerves:</strong> These bacteria can sneak past the special barrier that protects your brain and cause inflammation. This is why some people with Lyme disease have trouble thinking clearly or feel tingling in their hands and feet.</li>
-                        <li><strong class="glow">Heart:</strong> Lyme bacteria can invade your heart tissue and mess with its normal beating pattern. It's like they're trying to DJ your heartbeat, but they're terrible at it!</li>
-                        <li><strong class="glow">Stealth Mode:</strong> Sometimes the bacteria can go into "hibernation" mode where they barely move or grow. This makes them super hard for medicines to find and kill - sneaky!</li>
+                        <li><strong class="glow">Brain and Nerves:</strong> These bacteria can sneak past the special barrier that protects your <span class="brain-text">brain</span> and cause inflammation. This is why some people with Lyme disease have trouble thinking clearly or feel tingling in their hands and feet.</li>
+                        <li><strong class="glow">Heart:</strong> Lyme bacteria can invade your <span class="heart-text">heart</span> tissue and mess with its normal beating pattern. It's like they're trying to DJ your heartbeat, but they're terrible at it!</li>
+                        <li><strong class="glow">Stealth Mode:</strong> Sometimes the <span class="bacteria-text">bacteria</span> can go into "hibernation" mode where they barely move or grow. This makes them super hard for medicines to find and kill - sneaky!</li>
                     </ul>
                     <p>Understanding how these bacteria work helps scientists develop better ways to detect and treat Lyme disease. Early treatment is super important before these bacteria can spread throughout your body!</p>
                 </div>
                 <div class="cellular-image">
                     <img src="images/organ.png" alt="Medical research">
                 </div>
+            </div>
+            
+            <div class="fun-fact-box" style="margin-top: 3rem; text-align: center;">
+                <h3>AMAZING FACT: BACTERIAL PROPELLERS!</h3>
+                <p>Lyme bacteria have special <span class="flagella-text">flagella</span> that work like tiny propellers! These whip-like structures help the bacteria swim through your body fluids at incredible speeds. They can spin these flagella up to 1,000 times per second - that's faster than a race car engine!</p>
             </div>
         </div>
     </section>
@@ -3675,52 +4384,6 @@
         </div>
     </section>
 
-    <section id="initiative" class="initiative-section">
-        <div class="container">
-            <div class="initiative-grid">
-                <div class="initiative-image">
-                    <img src="images/mission.png.png" alt="Team working on Lyme disease awareness">
-                </div>
-                <div class="initiative-content">
-                    <h2>OUR MISSION</h2>
-                    <p>Beneath The Bite was founded with a clear mission: to provide <span class="highlight">accurate information</span> about Lyme disease and increase public awareness through education and interactive learning.</p>
-                    <p>Our team of healthcare professionals, researchers, and patient advocates works tirelessly to develop resources that help people understand the risks, recognize symptoms, and take preventive measures against Lyme disease.</p>
-                    <p>Through community outreach, educational programs, and innovative digital tools, we aim to reduce the incidence of Lyme disease and improve outcomes for those affected by it.</p>
-                    <a href="#contact" class="btn">JOIN OUR CAUSE</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-<section id="team" class="team-section">
-    <div class="container">
-        <div class="section-title-container">
-            <h2>MEET THE TEAM</h2>
-        </div>
-        <p class="section-intro">
-            Our dedicated team brings together expertise from healthcare education and patient advocacy to create comprehensive resources on Lyme disease awareness.
-        </p>
-        <div class="team-grid">
-            <div class="team-member">
-                <img src="images/Faria.png" alt="Faria Rahmani" class="team-img">
-                <div class="team-content">
-                    <h3>FARIA RAHMANI</h3>
-                    <div class="team-role">CO-FOUNDER</div>
-                    <p>A fourth-year student at the University of Toronto Scarborough, double majoring in Human Biology and Molecular Biology, Immunology, and Disease, with a minor in Psychology. She co-founded Beneath the Bite to raise awareness about the impact of insect-borne diseases and to create content that's grounded, engaging, and easy to understand. As a first-generation Afghan-Canadian student, she's passionate about making science feel more inclusive and reflective of the people it's meant to serve.</p>
-                </div>
-            </div>
-            <div class="team-member">
-                <img src="images/Gabrielle.png" alt="Gabrielle La Paz" class="team-img">
-                <div class="team-content">
-                    <h3>GABRIELLE LA PAZ</h3>
-                    <div class="team-role">CO-FOUNDER</div>
-                    <p>A fourth-year student at the University of Toronto Scarborough, double majoring in Health Studies and Human Biology. She co-founded Beneath the Bite to make health education more inclusive and accessible, especially for communities that are often overlooked. As a first-generation Filipino-Canadian student, she's passionate about connecting science to everyday life in a way that feels real and relatable.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
     <section id="game" class="game-section">
         <div class="container">
             <div class="section-title-container">
@@ -3810,6 +4473,37 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </section>
+
+    <section id="team" class="team-section">
+        <div class="container">
+            <div class="section-title-container">
+                <h2>MEET THE TEAM</h2>
+            </div>
+            <p class="section-intro">
+                Our dedicated team brings together expertise from healthcare education and patient advocacy to create comprehensive resources on Lyme disease awareness.
+            </p>
+            <div class="team-grid">
+                <div class="team-member">
+                    <img src="images/Faria.png" alt="Faria Rahmani" class="team-img">
+                    <div class="team-content">
+                        <h3>FARIA RAHMANI</h3>
+                        <div class="team-role">CO-FOUNDER</div>
+                        <p>A fourth-year student at the University of Toronto Scarborough, double majoring in Human Biology and Molecular Biology, Immunology, and Disease, with a minor in Psychology. She co-founded Beneath the Bite to raise awareness about the impact of insect-borne diseases and to create content that's grounded, engaging, and easy to understand. As a first-generation Afghan-Canadian student, she's passionate about making science feel more inclusive and reflective of the people it's meant to serve.</p>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <img src="images/Gabrielle.png" alt="Gabrielle La Paz" class="team-img">
+                    <div class="team-content">
+                        <h3>GABRIELLE LA PAZ</h3>
+                        <div class="team-role">CO-FOUNDER</div>
+                        <p>A fourth-year student at the University of Toronto Scarborough, double majoring in Health Studies and Human Biology. She co-founded Beneath the Bite to make health education more inclusive and accessible, especially for communities that are often overlooked. As a first-generation Filipino-Canadian student, she's passionate about connecting science to everyday life in a way that feels real and relatable.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <section id="contact" class="contact-section">
         <div class="container">
@@ -3826,7 +4520,7 @@
                     <a href="https://www.instagram.com/beneathbite" class="social-link" target="_blank">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
                     </a>
-                    <a href="https://www.x.com/beneaththebite" class="social-link" target="_blank">
+                    <a href="https://www.x.com/beneathbite" class="social-link" target="_blank">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>
                     </a>
                 </div>
@@ -3838,15 +4532,15 @@
         <div class="container">
             <a href="#" class="logo">Beneath The Bite</a>
             <ul class="footer-links">
+                <li><a href="#initiative">OUR MISSION</a></li>
                 <li><a href="#about">LYME 101</a></li>
                 <li><a href="#symptoms">SYMPTOMS</a></li>
                 <li><a href="#cellular">INSIDE THE BODY</a></li>
                 <li><a href="#prevention">PREVENTION</a></li>
                 <li><a href="#dress-game">TICK-SAFE GEAR</a></li>
                 <li><a href="#celebrity">FAMOUS CASES</a></li>
-                <li><a href="#initiative">OUR MISSION</a></li>
-                <li><a href="#team">MEET THE TEAM</a></li>
                 <li><a href="#game">PLAY & LEARN</a></li>
+                <li><a href="#team">MEET THE TEAM</a></li>
                 <li><a href="#contact">CONTACT</a></li>
             </ul>
             <p class="copyright">© 2025 Beneath The Bite. All rights reserved.</p>
@@ -4267,125 +4961,163 @@
         quizNextBtn.addEventListener('click', nextQuestion);
         quizRestartBtn.addEventListener('click', restartQuiz);
 
-// Magnifying Glass Game (Stick Figure Edition)
-const magnifierGameBoard = document.getElementById('magnifier-game-board');
-const magnifier = document.getElementById('magnifier');
-const magnifierScoreDisplay = document.getElementById('magnifier-score');
-const magnifierTimeDisplay = document.getElementById('magnifier-time');
-const startMagnifierButton = document.getElementById('start-magnifier');
-const resetMagnifierButton = document.getElementById('reset-magnifier');
-const magnifierOverModal = document.getElementById('magnifier-over-modal');
-const finalMagnifierScoreDisplay = document.getElementById('final-magnifier-score');
-const closeMagnifierModalButton = document.getElementById('close-magnifier-modal');
+        // Magnifying Glass Game
+        const magnifierGameBoard = document.getElementById('magnifier-game-board');
+        const magnifier = document.getElementById('magnifier');
+        const magnifierScoreDisplay = document.getElementById('magnifier-score');
+        const magnifierTimeDisplay = document.getElementById('magnifier-time');
+        const startMagnifierButton = document.getElementById('start-magnifier');
+        const resetMagnifierButton = document.getElementById('reset-magnifier');
+        const magnifierOverModal = document.getElementById('magnifier-over-modal');
+        const finalMagnifierScoreDisplay = document.getElementById('final-magnifier-score');
+        const closeMagnifierModalButton = document.getElementById('close-magnifier-modal');
 
-let magnifierScore = 0;
-let magnifierTimeLeft = 60;
-let magnifierInterval;
-let totalTicks = 5;
-let hiddenTicks = [];
+        let magnifierScore = 0;
+        let magnifierTimeLeft = 60;
+        let magnifierInterval;
+        let totalTicks = 5;
+        let hiddenTicks = [];
 
-function setupMagnifier() {
-  magnifierGameBoard.addEventListener('mousemove', (e) => {
-    if (magnifier.style.display === 'block') {
-      const rect = magnifierGameBoard.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      magnifier.style.left = `${x - 90}px`;
-      magnifier.style.top = `${y - 90}px`;
-      magnifier.style.backgroundPosition = `${-x * 2 + 90}px ${-y * 2 + 90}px`;
-    }
-  });
+        function setupMagnifier() {
+            // Setup magnifier movement
+            magnifierGameBoard.addEventListener('mousemove', (e) => {
+                if (magnifier.style.display === 'block') {
+                    const rect = magnifierGameBoard.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    
+                    // Position magnifier at cursor
+                    magnifier.style.left = `${x - 90}px`;
+                    magnifier.style.top = `${y - 90}px`;
+                    
+                    // Update magnified background with increased zoom
+                    const bgPosX = -x * 3 + 90;
+                    const bgPosY = -y * 3 + 90;
+                    magnifier.style.backgroundImage = `url('https://images.unsplash.com/photo-1542273917363-3b1817f69a2d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80')`;
+                    magnifier.style.backgroundSize = `${magnifierGameBoard.offsetWidth * 3}px ${magnifierGameBoard.offsetHeight * 3}px`;
+                    magnifier.style.backgroundPosition = `${bgPosX}px ${bgPosY}px`;
+                }
+            });
+            
+            // Show magnifier when mouse enters game board
+            magnifierGameBoard.addEventListener('mouseenter', () => {
+                if (magnifierTimeLeft > 0 && resetMagnifierButton.disabled === false) {
+                    magnifier.style.display = 'block';
+                }
+            });
+            
+            // Hide magnifier when mouse leaves game board
+            magnifierGameBoard.addEventListener('mouseleave', () => {
+                magnifier.style.display = 'none';
+            });
+        }
 
-  magnifierGameBoard.addEventListener('mouseenter', () => {
-    if (magnifierTimeLeft > 0 && !resetMagnifierButton.disabled) {
-      magnifier.style.display = 'block';
-    }
-  });
+        function createHiddenTicks() {
+            // Clear any existing ticks
+            hiddenTicks.forEach(tick => tick.remove());
+            hiddenTicks = [];
+            
+            // Create new hidden ticks at random positions
+            for (let i = 0; i < totalTicks; i++) {
+                const tick = document.createElement('div');
+                tick.className = 'hidden-tick';
+                
+                // Random position within the game board
+                const left = Math.random() * (magnifierGameBoard.offsetWidth - 25);
+                const top = Math.random() * (magnifierGameBoard.offsetHeight - 25);
+                
+                tick.style.left = `${left}px`;
+                tick.style.top = `${top}px`;
+                
+                // Add click handler
+                tick.addEventListener('click', () => {
+                    if (tick.classList.contains('found')) return;
+                    tick.classList.add('found');
+                    tick.style.opacity = '1';
+                    magnifierScore++;
+                    magnifierScoreDisplay.textContent = `Found: ${magnifierScore}/${totalTicks}`;
+                    
+                    if (magnifierScore === totalTicks) {
+                        endMagnifierGame(true);
+                    }
+                });
+                
+                magnifierGameBoard.appendChild(tick);
+                hiddenTicks.push(tick);
+            }
+        }
 
-  magnifierGameBoard.addEventListener('mouseleave', () => {
-    magnifier.style.display = 'none';
-  });
-}
+        function startMagnifierGame() {
+            // Reset game state
+            magnifierScore = 0;
+            magnifierTimeLeft = 60;
+            
+            // Update display
+            magnifierScoreDisplay.textContent = `Found: ${magnifierScore}/${totalTicks}`;
+            magnifierTimeDisplay.textContent = `Time: ${magnifierTimeLeft}s`;
+            
+            // Create hidden ticks
+            createHiddenTicks();
+            
+            // Disable start button, enable reset button
+            startMagnifierButton.disabled = true;
+            resetMagnifierButton.disabled = false;
+            
+            // Start game timer
+            magnifierInterval = setInterval(() => {
+                magnifierTimeLeft--;
+                magnifierTimeDisplay.textContent = `Time: ${magnifierTimeLeft}s`;
+                
+                if (magnifierTimeLeft <= 0) {
+                    endMagnifierGame(false);
+                }
+            }, 1000);
+            
+            // Show magnifier when game starts
+            magnifier.style.display = 'block';
+        }
 
-function createHiddenTicks() {
-  hiddenTicks.forEach(tick => tick.remove());
-  hiddenTicks = [];
-  const commonAreas = ['head', 'armpit', 'waist', 'ankle', 'behind-knee', 'dog-ear'];
+        function endMagnifierGame(completed) {
+            clearInterval(magnifierInterval);
+            
+            // Hide magnifier
+            magnifier.style.display = 'none';
+            
+            // Show game over modal
+            finalMagnifierScoreDisplay.textContent = `You found: ${magnifierScore}/${totalTicks} ticks`;
+            magnifierOverModal.style.display = 'flex';
+        }
 
-  commonAreas.forEach(area => {
-    const tick = document.createElement('div');
-    tick.className = `hidden-tick ${area}`;
-    tick.style.left = `${getTickPosition(area).x}px`;
-    tick.style.top = `${getTickPosition(area).y}px`;
+        function resetMagnifierGame() {
+            clearInterval(magnifierInterval);
+            
+            // Remove all ticks
+            hiddenTicks.forEach(tick => tick.remove());
+            hiddenTicks = [];
+            
+            // Reset game state
+            magnifierScore = 0;
+            magnifierTimeLeft = 60;
+            magnifierScoreDisplay.textContent = `Found: ${magnifierScore}/${totalTicks}`;
+            magnifierTimeDisplay.textContent = `Time: ${magnifierTimeLeft}s`;
+            
+            // Enable start button, disable reset button
+            startMagnifierButton.disabled = false;
+            resetMagnifierButton.disabled = true;
+            
+            // Hide magnifier
+            magnifier.style.display = 'none';
+        }
 
-    tick.addEventListener('click', () => {
-      if (tick.classList.contains('found')) return;
-      tick.classList.add('found');
-      magnifierScore++;
-      magnifierScoreDisplay.textContent = `Found: ${magnifierScore}/${totalTicks}`;
-      if (magnifierScore === totalTicks) endMagnifierGame(true);
-    });
+        // Close magnifier game modal
+        closeMagnifierModalButton.addEventListener('click', () => {
+            magnifierOverModal.style.display = 'none';
+            resetMagnifierGame();
+        });
 
-    magnifierGameBoard.appendChild(tick);
-    hiddenTicks.push(tick);
-  });
-}
+        startMagnifierButton.addEventListener('click', startMagnifierGame);
+        resetMagnifierButton.addEventListener('click', resetMagnifierGame);
 
-function getTickPosition(area) {
-  const positions = {
-    head: { x: 150, y: 30 },
-    armpit: { x: 140, y: 100 },
-    waist: { x: 150, y: 160 },
-    ankle: { x: 150, y: 220 },
-    'behind-knee': { x: 160, y: 200 },
-    'dog-ear': { x: 300, y: 60 }
-  };
-  return positions[area];
-}
-
-function startMagnifierGame() {
-  magnifierScore = 0;
-  magnifierTimeLeft = 60;
-  magnifierScoreDisplay.textContent = `Found: ${magnifierScore}/${totalTicks}`;
-  magnifierTimeDisplay.textContent = `Time: ${magnifierTimeLeft}s`;
-  createHiddenTicks();
-  startMagnifierButton.disabled = true;
-  resetMagnifierButton.disabled = false;
-  magnifierInterval = setInterval(() => {
-    magnifierTimeLeft--;
-    magnifierTimeDisplay.textContent = `Time: ${magnifierTimeLeft}s`;
-    if (magnifierTimeLeft <= 0) endMagnifierGame(false);
-  }, 1000);
-  magnifier.style.display = 'block';
-}
-
-function endMagnifierGame(completed) {
-  clearInterval(magnifierInterval);
-  magnifier.style.display = 'none';
-  finalMagnifierScoreDisplay.textContent = `You found: ${magnifierScore}/${totalTicks} ticks`;
-  magnifierOverModal.style.display = 'flex';
-}
-
-function resetMagnifierGame() {
-  clearInterval(magnifierInterval);
-  hiddenTicks.forEach(tick => tick.remove());
-  hiddenTicks = [];
-  magnifierScore = 0;
-  magnifierTimeLeft = 60;
-  magnifierScoreDisplay.textContent = `Found: ${magnifierScore}/${totalTicks}`;
-  magnifierTimeDisplay.textContent = `Time: ${magnifierTimeLeft}s`;
-  startMagnifierButton.disabled = false;
-  resetMagnifierButton.disabled = true;
-  magnifier.style.display = 'none';
-}
-
-closeMagnifierModalButton.addEventListener('click', () => {
-  magnifierOverModal.style.display = 'none';
-  resetMagnifierGame();
-});
-
-startMagnifierButton.addEventListener('click', startMagnifierGame);
-resetMagnifierButton.addEventListener('click', resetMagnifierGame);
 
         // Initialize magnifier game
         setupMagnifier();
