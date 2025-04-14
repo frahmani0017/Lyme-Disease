@@ -68,6 +68,19 @@
             margin: 0 auto;
         }
 
+        .tick-img-wrapper {
+    text-align: center;      /* centers the image */
+    margin-top: 20px;        /* space above the image */
+}
+
+.tick-size-img {
+    width: 300px;            /* or whatever fits well */
+    max-width: 100%;         /* responsive for smaller screens */
+    height: auto;
+    display: block;
+    margin: 0 auto;          /* centers if not using wrapper text-align */
+}
+
         nav {
             display: flex;
             flex-direction: column;
@@ -3306,11 +3319,12 @@
             <p class="section-intro">
                 Lyme disease is a bacterial infection primarily transmitted through the bite of infected black-legged ticks. 
                 It can cause a wide range of symptoms and, if left untreated, can affect <span class="glow">multiple body systems</span>.
-
-                <img src="images/tick.size.jpg" alt="Tick size comparison"
-                class="tick-size-img">
                 
             </p>
+
+    <div class="tick-img-wrapper">
+    <img src="images/tick.size.jpg" alt="Tick size comparison" class="tick-size-img">
+</div>
             <div class="info-grid">
                 <div class="info-item">
                     <div class="info-icon">🦠</div>
